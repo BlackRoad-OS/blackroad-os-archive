@@ -1,0 +1,19 @@
+people:
+  - handle: "@Alexa"
+    role: "Founder / Queen Root User"
+    areas: [strategy, brand, research, infra]
+  - handle: "@OpsTeam"
+    role: "Ops collective"
+    areas: [infra, ops, security]
+  - handle: "@ResearchCrew"
+    role: "Research collective"
+    areas: [research, intelligence, experimentation]
+  - handle: "@CreatorGuild"
+    role: "Creator Guild"
+    areas: [experience, packs, education]
+  - handle: "@DocsTeam"
+    role: "Documentation stewards"
+    areas: [docs, developer-relations]
+  - handle: "@Brand"
+    role: "Brand leads"
+    areas: [brand, marketing, web]
