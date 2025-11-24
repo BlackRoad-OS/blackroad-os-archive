@@ -31,7 +31,7 @@ async function appendBeacon() {
     const raw = await readFile(targetPath, 'utf-8');
     existing = JSON.parse(raw);
   } catch (err) {
-    if ((err).code !== 'ENOENT') throw err;
+    if ((err as NodeJS.ErrnoException).code !== 'ENOENT') throw err;
   }
 
   const record = {
