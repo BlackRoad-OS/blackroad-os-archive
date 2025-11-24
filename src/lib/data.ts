@@ -39,11 +39,17 @@ export function getBeacons(): BeaconRecord[] {
 }
 
 export function getDeploysByDate(date: string): DeployRecord[] {
-  return getDeploys().filter((deploy) => deploy.ts.startsWith(date));
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error(`Invalid date format: ${date}`);
+  }
+  return getDeploys().filter((deploy) => deploy.ts.slice(0, 10) === date);
 }
 
 export function getBeaconsByDate(date: string): BeaconRecord[] {
-  return getBeacons().filter((beacon) => beacon.ts.startsWith(date));
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error(`Invalid date format: ${date}`);
+  }
+  return getBeacons().filter((beacon) => beacon.ts.slice(0, 10) === date);
 }
 
 // TODO(archive-next): expose helpers for compressed bundle reads
