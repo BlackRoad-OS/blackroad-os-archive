@@ -7,7 +7,7 @@
 <section class="beacon-card">
   <div class="beacon-card__header">
     <h2>Beacon Pings</h2>
-    <p>Append-only status pulses across environments.</p>
+    <p class="hint">Append-only status pulses across environments.</p>
   </div>
   <table>
     <thead>
@@ -58,6 +58,12 @@
 
   h2 {
     margin: 0;
+  }
+
+  .hint {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.9rem;
   }
 
   table {
