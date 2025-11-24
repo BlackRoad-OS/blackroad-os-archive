@@ -13,7 +13,7 @@ const env = args.env;
 const status = args.status;
 const note = args.note || '';
 
-if (!env || !status) {
+if (!env || !env.trim() || !status || !status.trim()) {
   console.error('Usage: pnpm add:beacon --env ENV --status STATUS [--note "..." ]');
   process.exit(1);
 }
