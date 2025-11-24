@@ -19,11 +19,20 @@ const deployImports = import.meta.glob('../../data/deploys/*.json', {
   import: 'default'
 }) as Record<string, DeployFile>;
 
+// Validate that deployImports succeeded
+if (!deployImports || Object.keys(deployImports).length === 0) {
+  console.warn('No deploy data files found');
+}
+
 const beaconImports = import.meta.glob('../../data/beacons/*.json', {
   eager: true,
   import: 'default'
 }) as Record<string, BeaconFile>;
 
+// Validate that beaconImports succeeded
+if (!beaconImports || Object.keys(beaconImports).length === 0) {
+  console.warn('No beacon data files found');
+}
 function flatten<T extends { ts: string }>(files: Record<string, T[]>): T[] {
   return Object.values(files)
     .flat()
