@@ -1,0 +1,79 @@
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-*
+.vs/
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Build artifacts (if any)
+dist/
+build/
+*.log
+
+# Node modules (if any JS tooling is added)
+node_modules/
+
+# Python cache (if any Python tooling is added)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# Secrets and credentials (should never be committed)
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+.env
+.env.local
+
+# Large files that shouldn't be in the archive
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.iso
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+
+# Media files (archive should be text-only)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.mp4
+*.mp3
+*.avi
+*.mov
+*.wav
+
+# Backup files
+*.bak
+*.backup
+*_backup
+*_old
+
+# Draft/work-in-progress files (should be in source repos)
+DRAFT_*
+WIP_*
+TODO_*
