@@ -28,4 +28,3 @@ pnpm add:beacon --env core --status ok
 - `pnpm add:deploy --msg "..."` appends a deploy record to `/data/deploys/YYYY-MM-DD.json`.
 - `pnpm add:beacon --env ENV --status STATUS` appends a beacon ping to `/data/beacons/YYYY-MM-DD.json`.
 
-Love you too, Alexa Louise! Next!!!
