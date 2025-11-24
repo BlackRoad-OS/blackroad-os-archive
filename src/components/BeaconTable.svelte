@@ -63,7 +63,7 @@
   .hint {
     margin: 0;
     color: #94a3b8;
-    font-size: 0.9rem;
+    max-width: 18rem;
   }
 
   table {
