@@ -6,7 +6,7 @@
     "id": {"type": "string", "minLength": 1},
     "title": {"type": "string", "minLength": 1},
     "type": {"type": "string", "enum": ["repo", "project", "artifact"]},
-    "status": {"type": "string", "enum": ["active", "archived", "legacy"]},
+    "status": {"type": "string", "enum": ["active", "archived", "experimental", "legacy"]},
     "timeframe": {"type": "string"},
     "primary_repo": {"type": "string"},
     "linked_repos": {
