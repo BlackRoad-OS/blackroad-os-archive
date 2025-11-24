@@ -9,7 +9,8 @@ export async function writeSignature() {
     ts: new Date().toISOString(),
     agent: 'Archive-Gen-0'
   };
-  const target = resolve(currentDir, '../../public/sig.beacon.json');
+  const projectRoot = resolve(currentDir, '../..');
+  const target = resolve(projectRoot, 'public/sig.beacon.json');
   await writeFile(target, JSON.stringify(payload, null, 2));
 }
 
