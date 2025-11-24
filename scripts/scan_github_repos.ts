@@ -53,7 +53,15 @@ async function fetchReposForOrg(org: string): Promise<RepoRecord[]> {
     if (!data.length) break;
 
     data.forEach((repo) => {
-      const id = repo.name.replace(/^blackroad-os-/, "");
+      let id: string;
+      if (repo.name.startsWith("blackroad-os-")) {
+        id = repo.name.replace(/^blackroad-os-/, "");
+      } else {
+        id = `other-${repo.name}`;
+        console.warn(
+          `Repository '${repo.full_name}' does not start with 'blackroad-os-'. Assigned id: '${id}'.`
+        );
+      }
       repos.push({
         id,
         full_name: repo.full_name,
