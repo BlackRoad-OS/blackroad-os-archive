@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "echo 'No tests yet'",
+    "test": "echo 'Warning: No tests configured' && exit 0",
     "add:deploy": "node scripts/add_deploy.mjs",
     "add:beacon": "node scripts/add_beacon.mjs"
   },
