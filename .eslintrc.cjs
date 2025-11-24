@@ -15,9 +15,6 @@ module.exports = {
     ecmaVersion: 2021,
     sourceType: 'module'
   },
-  settings: {
-    'svelte3/typescript': true
-  },
   overrides: [
     {
       files: ['*.astro'],
