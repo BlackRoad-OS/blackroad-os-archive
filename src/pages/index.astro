@@ -1,0 +1,108 @@
+---
+import DeployTimeline from '../components/DeployTimeline.svelte';
+import BeaconTable from '../components/BeaconTable.svelte';
+import { getBeacons, getDeploys } from '../lib/data';
+
+const deploys = getDeploys();
+const beacons = getBeacons();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackroad OS · System Archive</title>
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <p class="eyebrow">Archive-Gen-0</p>
+        <h1>Blackroad OS · System Archive</h1>
+        <p class="lede">Append-only ledger for deploys, beacon pings, and day-by-day snapshots.</p>
+      </header>
+
+      <section class="grid">
+        <DeployTimeline client:load deploys={deploys} />
+        <BeaconTable client:load beacons={beacons} />
+      </section>
+
+      <section class="cta">
+        <h2>Daily log views</h2>
+        <p>Jump into `/logs/YYYY/MM/DD` for date-scoped records.</p>
+        <p class="todo">// TODO(archive-next): surface compressed log bundles + IPFS gateways</p>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    color-scheme: dark;
+    --theme-surface: #0f1117;
+    --theme-border: #1f2937;
+    --theme-text: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.08), transparent 25%),
+      radial-gradient(circle at 80% 0%, rgba(236, 72, 153, 0.07), transparent 22%),
+      #06070b;
+    color: var(--theme-text);
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  main {
+    max-width: 1100px;
+    padding: 2rem clamp(1rem, 3vw, 2rem);
+    margin: 0 auto;
+  }
+
+  .hero {
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  h1 {
+    margin: 0.25rem 0 0.35rem;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+  }
+
+  .lede {
+    margin: 0;
+    color: #cbd5e1;
+    max-width: 640px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 880px) {
+    .grid {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+
+  .cta {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px dashed #1f2937;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+  }
+
+  .todo {
+    font-family: 'JetBrains Mono', SFMono-Regular, ui-monospace, monospace;
+    color: #94a3b8;
+  }
+</style>

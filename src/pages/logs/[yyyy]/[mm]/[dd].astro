@@ -1,0 +1,86 @@
+---
+import DeployTimeline from '../../../components/DeployTimeline.svelte';
+import BeaconTable from '../../../components/BeaconTable.svelte';
+import { getBeaconsByDate, getDeploysByDate } from '../../../lib/data';
+
+const { yyyy, mm, dd } = Astro.params;
+const slug = `${yyyy}-${mm}-${dd}`;
+const deploys = getDeploysByDate(slug);
+const beacons = getBeaconsByDate(slug);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log for {slug}</title>
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <p class="eyebrow">Daily log</p>
+        <h1>{slug}</h1>
+        <p class="lede">Deploys and beacons captured on this date.</p>
+      </header>
+
+      <section class="grid">
+        <DeployTimeline client:load deploys={deploys} />
+        <BeaconTable client:load beacons={beacons} />
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    color-scheme: dark;
+    --theme-text: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #06070b;
+    color: var(--theme-text);
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  main {
+    max-width: 1000px;
+    padding: 2rem clamp(1rem, 3vw, 2rem);
+    margin: 0 auto;
+  }
+
+  .hero {
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  h1 {
+    margin: 0.25rem 0 0.35rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+  }
+
+  .lede {
+    margin: 0;
+    color: #cbd5e1;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 880px) {
+    .grid {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+</style>
