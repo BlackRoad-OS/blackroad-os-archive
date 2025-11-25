@@ -1,6 +1,6 @@
 # 📅 BlackRoad OS Timeline
 
-**Last Updated:** 2025-11-24  
+**Last Updated:** 2025-11-25  
 **Purpose:** Chronological map of major milestones and events  
 **Format:** Most recent first
 
@@ -9,6 +9,15 @@
 ## 2025
 
 ### November 2025
+
+#### 2025-11-25
+- **Archive Brain Online** 🧾💚
+  - `blackroad-os-archive` updated to Memory Vault 📡 role
+  - New categories: Deploy Logs, System Pings, Beacon Maps, Artifacts, Reports
+  - Append-only invariants established
+  - Compliance and security guidance added
+  - Local emoji legend created
+  - **Significance:** Archive now serves as immutable memory for all of BlackRoad OS
 
 #### 2025-11-24
 - **BlackRoad OS Archive Initialized** 🕯️
@@ -54,9 +63,29 @@
 
 ## Timeline Categories
 
+### 🚀 Deploy Logs
+Deploy and release history
+- *Awaiting first deploy log*
+
+### 📡 System Pings
+Health snapshots and status history
+- *Awaiting first system ping*
+
+### 🗺️ Beacon Maps
+Service and environment reachability
+- *Awaiting first beacon map*
+
 ### 🕰️ Snapshots
 Regular ecosystem state captures
 - 2025-11-24: Initial snapshot (archive initialization)
+
+### 📸 Artifacts
+System artifacts and state bundles
+- *Awaiting first artifact*
+
+### 📑 Reports
+Incident postmortems and audits
+- *Awaiting first report*
 
 ### 🧬 IP Registrations
 Formal intellectual property registrations
@@ -148,13 +177,18 @@ Legal and corporate structure events
 
 ## Timeline Statistics
 
-**Current Metrics (2025-11-24):**
-- **Total Entries:** 2
+**Current Metrics (2025-11-25):**
+- **Total Entries:** 3
+- **Total Deploy Logs:** 0
+- **Total System Pings:** 0
+- **Total Beacon Maps:** 0
 - **Total Snapshots:** 1
+- **Total Artifacts:** 0
+- **Total Reports:** 0
 - **Total IP Registrations:** 0
-- **Timeline Span:** 0 days (just started!)
-- **Most Active Month:** November 2025 (2 entries)
-- **Most Active Year:** 2025 (2 entries)
+- **Timeline Span:** 1 day
+- **Most Active Month:** November 2025 (3 entries)
+- **Most Active Year:** 2025 (3 entries)
 
 *These statistics should be updated monthly*
 
