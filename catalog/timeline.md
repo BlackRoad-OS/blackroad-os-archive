@@ -1,6 +1,6 @@
 # 📅 BlackRoad OS Timeline
 
-**Last Updated:** 2025-11-24  
+**Last Updated:** 2025-11-25  
 **Purpose:** Chronological map of major milestones and events  
 **Format:** Most recent first
 
@@ -9,6 +9,15 @@
 ## 2025
 
 ### November 2025
+
+#### 2025-11-25
+- **Archive Master Prompt (V0.1.64) Created** 🧬
+  - The 64-Layer Preservation Engine — defines the Archive's core identity
+  - [Archive Master Prompt](../archive/system/prompts/archive_master_prompt.md)
+  - Establishes the 8×8 = 64 archive strata across 8 major domains
+  - Defines ArchiveItem schema, immutability rules, and lineage chains
+  - Introduces NP/P dual memory model (Symbolic + Perceptual)
+  - **Significance:** Foundation for AI agent identity and behavior in the Archive
 
 #### 2025-11-24
 - **BlackRoad OS Archive Initialized** 🕯️
@@ -57,6 +66,10 @@
 ### 🕰️ Snapshots
 Regular ecosystem state captures
 - 2025-11-24: Initial snapshot (archive initialization)
+
+### 🤖 System Prompts
+AI agent identity and behavior definitions
+- 2025-11-25: Archive Master Prompt (V0.1.64) created
 
 ### 🧬 IP Registrations
 Formal intellectual property registrations
@@ -148,13 +161,14 @@ Legal and corporate structure events
 
 ## Timeline Statistics
 
-**Current Metrics (2025-11-24):**
-- **Total Entries:** 2
+**Current Metrics (2025-11-25):**
+- **Total Entries:** 3
 - **Total Snapshots:** 1
 - **Total IP Registrations:** 0
-- **Timeline Span:** 0 days (just started!)
-- **Most Active Month:** November 2025 (2 entries)
-- **Most Active Year:** 2025 (2 entries)
+- **Total System Prompts:** 1
+- **Timeline Span:** 1 day
+- **Most Active Month:** November 2025 (3 entries)
+- **Most Active Year:** 2025 (3 entries)
 
 *These statistics should be updated monthly*
 
