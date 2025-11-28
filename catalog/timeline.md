@@ -1,6 +1,6 @@
 # 📅 BlackRoad OS Timeline
 
-**Last Updated:** 2025-11-24  
+**Last Updated:** 2025-11-28
 **Purpose:** Chronological map of major milestones and events  
 **Format:** Most recent first
 
@@ -9,6 +9,12 @@
 ## 2025
 
 ### November 2025
+
+#### 2025-11-28
+- **Trinary Encoding Alphabet & Base729 Mapping** 🧬
+  - [Trinary Encoding Specification](../ip/trinary-encoding-spec.md) defines Base27, Base81, and Base729 alphabets with balanced-ternary semantics for RoadChain/Lucidia payloads.
+  - Significance: Establishes canonical mapping for paraconsistent trits and high-density archival strings, enabling PS-SHA∞ and coherence-aware data interchange.
+  - Related: Extends the archive's IP catalog beyond workflows and snapshots.
 
 #### 2025-11-24
 - **BlackRoad OS Archive Initialized** 🕯️
@@ -60,7 +66,7 @@ Regular ecosystem state captures
 
 ### 🧬 IP Registrations
 Formal intellectual property registrations
-- *None yet - awaiting first IP registration*
+- 2025-11-28: Trinary Encoding Alphabet & Base729 Mapping ([spec](../ip/trinary-encoding-spec.md))
 
 ### 📚 Documentation
 Major documentation milestones
@@ -148,13 +154,13 @@ Legal and corporate structure events
 
 ## Timeline Statistics
 
-**Current Metrics (2025-11-24):**
-- **Total Entries:** 2
+**Current Metrics (2025-11-28):**
+- **Total Entries:** 3
 - **Total Snapshots:** 1
-- **Total IP Registrations:** 0
-- **Timeline Span:** 0 days (just started!)
-- **Most Active Month:** November 2025 (2 entries)
-- **Most Active Year:** 2025 (2 entries)
+- **Total IP Registrations:** 1
+- **Timeline Span:** 4 days (2025-11-24 to 2025-11-28)
+- **Most Active Month:** November 2025 (3 entries)
+- **Most Active Year:** 2025 (3 entries)
 
 *These statistics should be updated monthly*
 

@@ -1,7 +1,7 @@
 # 📇 BlackRoad OS Archive Index
 
-**Last Updated:** 2025-11-24  
-**Total Archived Items:** 0  
+**Last Updated:** 2025-11-28
+**Total Archived Items:** 7
 **Purpose:** Master index of all archived content
 
 ---
@@ -36,17 +36,11 @@ Point-in-time captures of the BlackRoad OS ecosystem state.
 
 Canonical versions of intellectual property, protocols, and frameworks.
 
-*No IP artifacts archived yet. See `workflows/ip-registration-workflow.md` for how to register IP.*
-
-**Example entry format:**
-```markdown
-- [Protocol Name](../ip/protocol-name-v1.0.md)  
+- [Trinary Encoding Specification (Base27, Base81, Base729)](../ip/trinary-encoding-spec.md)
   - Category: IP / Protocol
-  - Registration: IP-YYYYMMDD-XXX
-  - Version: 1.0
-  - Archived: YYYY-MM-DD
-  - Source: `BlackRoad-OS/[repo]` @ `[commit]`
-```
+  - Archived: 2025-11-28
+  - Source: `BlackRoad-OS/blackroad-os-archive`
+  - Focus: Balanced ternary alphabets, Base81 ordering, Base729 mapping via Base27 pairs
 
 ---
 
@@ -108,12 +102,12 @@ Archive documentation and operational files.
 ## 📊 Statistics
 
 - **Total Snapshots:** 1
-- **Total IP Artifacts:** 0
+- **Total IP Artifacts:** 1
 - **Total Legal/Finance Docs:** 0
 - **Total Workflows:** 3
 - **Total Meta Docs:** 2
 - **First Archive Entry:** 2025-11-24
-- **Last Archive Entry:** 2025-11-24
+- **Last Archive Entry:** 2025-11-28
 
 ---
 
@@ -136,6 +130,9 @@ Archive documentation and operational files.
 ---
 
 ## 🆕 Recent Additions
+
+### 2025-11-28
+- Trinary Encoding Specification archived under IP (Base27/Base81/Base729 mapping)
 
 ### 2025-11-24
 - Initial archive structure created
