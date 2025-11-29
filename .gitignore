@@ -77,3 +77,10 @@ secrets/
 DRAFT_*
 WIP_*
 TODO_*
+node_modules
+dist
+.cache
+output
+.DS_Store
+.env
+archive.env
