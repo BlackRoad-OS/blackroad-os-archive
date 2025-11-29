@@ -84,3 +84,7 @@ output
 .DS_Store
 .env
 archive.env
+node_modules
+.DS_Store
+npm-debug.log*
+dist

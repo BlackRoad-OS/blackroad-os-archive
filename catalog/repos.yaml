@@ -1,0 +1,241 @@
+repos:
+  - id: core
+    full_name: BlackRoad-OS/blackroad-os-core
+    org: BlackRoad-OS
+    description: Core platform services and OS substrate for BlackRoad.
+    visibility: public
+    status: active
+    primary_domain: blackroad.io
+    home_pack: infra-devops
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [platform, core]
+    owner_handles: ["@Alexa"]
+  - id: api
+    full_name: BlackRoad-OS/blackroad-os-api
+    org: BlackRoad-OS
+    description: Unified API layer for BlackRoad OS services.
+    visibility: public
+    status: active
+    primary_domain: api.blackroad.io
+    home_pack: infra-devops
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [api, services]
+    owner_handles: ["@Alexa"]
+  - id: api-gateway
+    full_name: BlackRoad-OS/blackroad-os-api-gateway
+    org: BlackRoad-OS
+    description: Edge routing and gateway configuration for BlackRoad OS APIs.
+    visibility: private
+    status: active
+    primary_domain: gateway.blackroad.io
+    home_pack: infra-devops
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [gateway, networking]
+    owner_handles: ["@OpsTeam"]
+  - id: operator
+    full_name: BlackRoad-OS/blackroad-os-operator
+    org: BlackRoad-OS
+    description: Control-plane operator and deployment orchestrator for BlackRoad services.
+    visibility: private
+    status: active
+    primary_domain: blackroad.systems
+    home_pack: infra-devops
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [kubernetes, operator]
+    owner_handles: ["@OpsTeam"]
+  - id: agents
+    full_name: BlackRoad-OS/blackroad-os-agents
+    org: BlackRoad-OS
+    description: Agent runtimes and behaviors for Lucidia-powered BlackRoad experiences.
+    visibility: private
+    status: experimental
+    primary_domain: lucidia.earth
+    home_pack: intelligence
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [agents, ai]
+    owner_handles: ["@ResearchCrew"]
+  - id: web
+    full_name: BlackRoad-OS/blackroad-os-web
+    org: BlackRoad-OS
+    description: Public web experience and marketing front door for BlackRoad OS.
+    visibility: public
+    status: active
+    primary_domain: blackroad.io
+    home_pack: creator-studio
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [web, marketing]
+    owner_handles: ["@Brand"]
+  - id: prism-console
+    full_name: BlackRoad-OS/blackroad-os-prism-console
+    org: BlackRoad-OS
+    description: Prism administrative console for orchestrating OS modules and packs.
+    visibility: private
+    status: active
+    primary_domain: console.blackroad.io
+    home_pack: creator-studio
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [console, admin]
+    owner_handles: ["@OpsTeam"]
+  - id: infra
+    full_name: BlackRoad-OS/blackroad-os-infra
+    org: BlackRoad-OS
+    description: Infrastructure-as-code, cloud topology, and platform bootstrapping.
+    visibility: private
+    status: active
+    primary_domain: blackroad.systems
+    home_pack: infra-devops
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [infra, terraform]
+    owner_handles: ["@OpsTeam"]
+  - id: docs
+    full_name: BlackRoad-OS/blackroad-os-docs
+    org: BlackRoad-OS
+    description: Public documentation set and developer guides.
+    visibility: public
+    status: active
+    primary_domain: docs.blackroad.io
+    home_pack: creator-studio
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [docs, guides]
+    owner_handles: ["@DocsTeam"]
+  - id: research
+    full_name: BlackRoad-OS/blackroad-os-research
+    org: BlackRoad-OS
+    description: Research notebooks, experiments, and prototypes for new OS capabilities.
+    visibility: private
+    status: experimental
+    primary_domain: null
+    home_pack: intelligence
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [research, prototypes]
+    owner_handles: ["@ResearchCrew"]
+  - id: brand
+    full_name: BlackRoad-OS/blackroad-os-brand
+    org: BlackRoad-OS
+    description: Brand system, messaging, and identity guides for BlackRoad OS.
+    visibility: private
+    status: active
+    primary_domain: null
+    home_pack: brand-lab
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [brand, guidelines]
+    owner_handles: ["@Brand"]
+  - id: archive
+    full_name: BlackRoad-OS/blackroad-os-archive
+    org: BlackRoad-OS
+    description: Canonical archive index, catalogs, and cover sheets for the BlackRoad constellation.
+    visibility: public
+    status: active
+    primary_domain: archive.blackroad.io
+    home_pack: infra-devops
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [archive, catalog]
+    owner_handles: ["@OpsTeam"]
+  - id: beacon
+    full_name: BlackRoad-OS/blackroad-os-beacon
+    org: BlackRoad-OS
+    description: Monitoring, pings, and heartbeat telemetry for BlackRoad OS services.
+    visibility: private
+    status: active
+    primary_domain: null
+    home_pack: infra-devops
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [observability, monitoring]
+    owner_handles: ["@OpsTeam"]
+  - id: pack-education
+    full_name: BlackRoad-OS/blackroad-os-pack-education
+    org: BlackRoad-OS
+    description: Education-focused pack bundling learning experiences and guidance.
+    visibility: private
+    status: active
+    primary_domain: null
+    home_pack: packs
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [pack, education]
+    owner_handles: ["@CreatorGuild"]
+  - id: pack-home
+    full_name: BlackRoad-OS/blackroad-os-pack-home
+    org: BlackRoad-OS
+    description: Home and personal automation pack for BlackRoad OS.
+    visibility: private
+    status: experimental
+    primary_domain: null
+    home_pack: packs
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [pack, home]
+    owner_handles: ["@CreatorGuild"]
+  - id: pack-creator-studio
+    full_name: BlackRoad-OS/blackroad-os-pack-creator-studio
+    org: BlackRoad-OS
+    description: Creator Studio pack aggregating web, console, and publishing workflows.
+    visibility: private
+    status: active
+    primary_domain: null
+    home_pack: packs
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [pack, studio]
+    owner_handles: ["@CreatorGuild"]
+  - id: pack-infra-devops
+    full_name: BlackRoad-OS/blackroad-os-pack-infra-devops
+    org: BlackRoad-OS
+    description: Infra + DevOps pack bundling operator, gateway, and monitoring.
+    visibility: private
+    status: active
+    primary_domain: null
+    home_pack: packs
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [pack, ops]
+    owner_handles: ["@OpsTeam"]
+  - id: pack-intelligence
+    full_name: BlackRoad-OS/blackroad-os-pack-intelligence
+    org: BlackRoad-OS
+    description: Intelligence pack centered on Lucidia agents and cognitive services.
+    visibility: private
+    status: experimental
+    primary_domain: lucidia.earth
+    home_pack: packs
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [pack, ai]
+    owner_handles: ["@ResearchCrew"]
+  - id: pack-governance
+    full_name: BlackRoad-OS/blackroad-os-pack-governance
+    org: BlackRoad-OS
+    description: Governance and compliance pack for policy management and auditing.
+    visibility: private
+    status: legacy
+    primary_domain: null
+    home_pack: packs
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [pack, governance]
+    owner_handles: ["@OpsTeam"]
+  - id: pack-beacon
+    full_name: BlackRoad-OS/blackroad-os-pack-beacon
+    org: BlackRoad-OS
+    description: Observability pack bundling beacon and telemetry components.
+    visibility: private
+    status: active
+    primary_domain: null
+    home_pack: packs
+    created_at: TBD-sync
+    updated_at: TBD-sync
+    tags: [pack, observability]
+    owner_handles: ["@OpsTeam"]

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Archive Cover Sheet",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "type": {"type": "string", "enum": ["repo", "project", "artifact"]},
+    "status": {"type": "string", "enum": ["active", "archived", "experimental", "legacy"]},
+    "timeframe": {"type": "string"},
+    "primary_repo": {"type": "string"},
+    "linked_repos": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "summary": {"type": "string"},
+    "why_it_matters": {"type": "string"},
+    "risk_if_lost": {"type": "string"},
+    "recommended_action": {"type": "string", "enum": ["keep-live", "snapshot", "deprecate", "merge"]}
+  },
+  "required": [
+    "id",
+    "title",
+    "type",
+    "status",
+    "timeframe",
+    "primary_repo",
+    "linked_repos",
+    "summary",
+    "why_it_matters",
+    "risk_if_lost",
+    "recommended_action"
+  ],
+  "additionalProperties": false
+}

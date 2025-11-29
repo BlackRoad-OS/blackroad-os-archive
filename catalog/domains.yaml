@@ -1,0 +1,17 @@
+domains:
+  - name: blackroad.io
+    purpose: main OS marketing + front door
+    primary_repo: blackroad-os-web
+    status: active
+  - name: blackroad.systems
+    purpose: infra / meta
+    primary_repo: blackroad-os-infra
+    status: active
+  - name: archive.blackroad.io
+    purpose: archive surface + catalogs
+    primary_repo: blackroad-os-archive
+    status: active
+  - name: lucidia.earth
+    purpose: intelligence / agents
+    primary_repo: lucidia
+    status: active
