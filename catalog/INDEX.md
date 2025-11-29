@@ -3,6 +3,8 @@
 **Last Updated:** 2025-11-28
 **Total Archived Items:** 1
 **Total Archived Items:** 7
+**Last Updated:** 2025-11-25  
+**Total Archived Items:** 1  
 **Purpose:** Master index of all archived content
 
 ---
@@ -16,6 +18,7 @@ This is the **table of contents** for the entire BlackRoad OS Archive. Every arc
 - 🧬 [IP & Protocols](#ip--protocols) - Intellectual property and frameworks
 - ⚖️ [Legal & Finance](#legal--finance) - Legal and financial documentation
 - 🔁 [Workflows](#workflows) - Process documentation
+- 🤖 [System Prompts](#system-prompts) - AI agent identity & behavior definitions
 - 📚 [Meta](#meta) - Archive documentation
 
 ---
@@ -97,6 +100,20 @@ Process documentation for how the BlackRoad OS ecosystem operates.
 
 ---
 
+## 🤖 System Prompts
+
+AI agent identity definitions, behavior specifications, and master prompts.
+
+### Archive System Prompts
+
+- [Archive Master Prompt (V0.1.64)](../archive/system/prompts/archive_master_prompt.md)  
+  - Category: System Prompt / Core Identity
+  - Created: 2025-11-25
+  - Version: 0.1.64
+  - Purpose: The 64-Layer Preservation Engine — defines the Archive's identity, structure, and immutability rules
+
+---
+
 ## 📚 Meta
 
 Archive documentation and operational files.
@@ -119,9 +136,11 @@ Archive documentation and operational files.
 - **Total IP Artifacts:** 1
 - **Total Legal/Finance Docs:** 0
 - **Total Workflows:** 3
+- **Total System Prompts:** 1
 - **Total Meta Docs:** 2
 - **First Archive Entry:** 2025-11-24
 - **Last Archive Entry:** 2025-11-28
+- **Last Archive Entry:** 2025-11-25
 
 ---
 
@@ -144,6 +163,9 @@ Archive documentation and operational files.
 ---
 
 ## 🆕 Recent Additions
+
+### 2025-11-25
+- Archive Master Prompt (V0.1.64) — The 64-Layer Preservation Engine
 
 ### 2025-11-24
 - Initial archive structure created
