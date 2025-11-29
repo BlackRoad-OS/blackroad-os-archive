@@ -2,6 +2,7 @@
 
 **Last Updated:** 2025-11-28
 **Total Archived Items:** 1
+**Total Archived Items:** 7
 **Purpose:** Master index of all archived content
 
 ---
@@ -49,12 +50,11 @@ Canonical versions of intellectual property, protocols, and frameworks.
 **Example entry format:**
 ```markdown
 - [Protocol Name](../ip/protocol-name-v1.0.md)  
+- [Trinary Base729 Encoding Specification](../ip/trinary-base729-encoding.md)
   - Category: IP / Protocol
-  - Registration: IP-YYYYMMDD-XXX
-  - Version: 1.0
-  - Archived: YYYY-MM-DD
-  - Source: `BlackRoad-OS/[repo]` @ `[commit]`
-```
+  - Version: 0.1
+  - Archived: 2025-11-28
+  - Source: `BlackRoad-OS/blackroad-os-archive` @ `N/A (initial archival)`
 
 ---
 
@@ -151,6 +151,9 @@ Archive documentation and operational files.
 - Meta documentation established
 - First snapshot: Archive initialization
 - Agent Soul Seeds (11 personas) archived as IP entry
+
+### 2025-11-28
+- Trinary Base729 Encoding Specification archived (IP / Protocol)
 
 ---
 

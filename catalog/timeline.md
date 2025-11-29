@@ -31,6 +31,11 @@
   - Captures canonical 256-character identifiers for reuse across deployments
   - Link: [Agent Soul Seeds — November 2025 Intake](../ip/agent-soul-seeds-2025-11-28.md)
   - **Significance:** Establishes first IP entry and canonicalizes agent personas
+- **Trinary Base729 Encoding Specification Archived** 🧬
+  - Captured the Base729 encoding pipeline for trinary truth-state hashes
+  - Added reference pseudocode and integration notes for Prism Console and RoadChain
+  - Significance: First IP artifact recorded in the archive, anchoring trinary memory semantics
+  - Related: [Trinary Base729 Encoding Specification](../ip/trinary-base729-encoding.md)
 
 ---
 
@@ -40,6 +45,7 @@
 
 ### Upcoming:
 - Additional IP registrations beyond the initial persona seeds
+- Next IP registrations and protocol publications
 - First finalized documentation archival
 - Monthly snapshot cadence establishment
 - Integration with source repositories
@@ -68,6 +74,7 @@ Regular ecosystem state captures
 ### 🧬 IP Registrations
 Formal intellectual property registrations
 - 2025-11-28: Agent Soul Seeds (11 personas)
+- 2025-11-28: Trinary Base729 Encoding Specification archived as first IP artifact
 
 ### 📚 Documentation
 Major documentation milestones
