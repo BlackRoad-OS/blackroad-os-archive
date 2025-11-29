@@ -7,6 +7,7 @@
 **Total Archived Items:** 1  
 **Last Updated:** 2025-11-25  
 **Total Archived Items:** 0  
+**Total Archived Items:** 7
 **Purpose:** Master index of all archived content
 
 ---
@@ -149,6 +150,11 @@ Canonical versions of intellectual property, protocols, and frameworks.
   - Version: 0.1
   - Archived: 2025-11-28
   - Source: `BlackRoad-OS/blackroad-os-archive` @ `N/A (initial archival)`
+- [Trinary Encoding Specification (Base27, Base81, Base729)](../ip/trinary-encoding-spec.md)
+  - Category: IP / Protocol
+  - Archived: 2025-11-28
+  - Source: `BlackRoad-OS/blackroad-os-archive`
+  - Focus: Balanced ternary alphabets, Base81 ordering, Base729 mapping via Base27 pairs
 
 ---
 
@@ -267,6 +273,8 @@ Archive documentation and operational files.
 - New categories: Deploy Logs, System Pings, Beacon Maps, Artifacts, Reports
 - Updated invariants (append-only, stable IDs, timestamps, context tags)
 - Added compliance and security guidance
+### 2025-11-28
+- Trinary Encoding Specification archived under IP (Base27/Base81/Base729 mapping)
 
 ### 2025-11-24
 - Initial archive structure created

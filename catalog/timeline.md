@@ -26,6 +26,11 @@
   - Compliance and security guidance added
   - Local emoji legend created
   - **Significance:** Archive now serves as immutable memory for all of BlackRoad OS
+#### 2025-11-28
+- **Trinary Encoding Alphabet & Base729 Mapping** 🧬
+  - [Trinary Encoding Specification](../ip/trinary-encoding-spec.md) defines Base27, Base81, and Base729 alphabets with balanced-ternary semantics for RoadChain/Lucidia payloads.
+  - Significance: Establishes canonical mapping for paraconsistent trits and high-density archival strings, enabling PS-SHA∞ and coherence-aware data interchange.
+  - Related: Extends the archive's IP catalog beyond workflows and snapshots.
 
 #### 2025-11-24
 - **BlackRoad OS Archive Initialized** 🕯️
@@ -115,6 +120,7 @@ Incident postmortems and audits
 Formal intellectual property registrations
 - 2025-11-28: Agent Soul Seeds (11 personas)
 - 2025-11-28: Trinary Base729 Encoding Specification archived as first IP artifact
+- 2025-11-28: Trinary Encoding Alphabet & Base729 Mapping ([spec](../ip/trinary-encoding-spec.md))
 
 ### 📚 Documentation
 Major documentation milestones
@@ -220,6 +226,9 @@ Legal and corporate structure events
 - **Total IP Registrations:** 0
 - **Total System Prompts:** 1
 - **Timeline Span:** 1 day
+- **Total Snapshots:** 1
+- **Total IP Registrations:** 1
+- **Timeline Span:** 4 days (2025-11-24 to 2025-11-28)
 - **Most Active Month:** November 2025 (3 entries)
 - **Most Active Year:** 2025 (3 entries)
 
