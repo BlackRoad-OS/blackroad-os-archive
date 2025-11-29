@@ -1,6 +1,6 @@
 # 📅 BlackRoad OS Timeline
 
-**Last Updated:** 2025-11-24  
+**Last Updated:** 2025-11-28
 **Purpose:** Chronological map of major milestones and events  
 **Format:** Most recent first
 
@@ -25,6 +25,13 @@
   - Documented repository structure
   - Type: Milestone (Archive initialization)
 
+#### 2025-11-28
+- **Trinary Base729 Encoding Specification Archived** 🧬
+  - Captured the Base729 encoding pipeline for trinary truth-state hashes
+  - Added reference pseudocode and integration notes for Prism Console and RoadChain
+  - Significance: First IP artifact recorded in the archive, anchoring trinary memory semantics
+  - Related: [Trinary Base729 Encoding Specification](../ip/trinary-base729-encoding.md)
+
 ---
 
 ## Future Milestones
@@ -32,7 +39,7 @@
 *This section will track anticipated major milestones*
 
 ### Upcoming:
-- First IP registration
+- Next IP registrations and protocol publications
 - First finalized documentation archival
 - Monthly snapshot cadence establishment
 - Integration with source repositories
@@ -60,7 +67,7 @@ Regular ecosystem state captures
 
 ### 🧬 IP Registrations
 Formal intellectual property registrations
-- *None yet - awaiting first IP registration*
+- 2025-11-28: Trinary Base729 Encoding Specification archived as first IP artifact
 
 ### 📚 Documentation
 Major documentation milestones
@@ -148,13 +155,13 @@ Legal and corporate structure events
 
 ## Timeline Statistics
 
-**Current Metrics (2025-11-24):**
-- **Total Entries:** 2
+**Current Metrics (2025-11-28):**
+- **Total Entries:** 3
 - **Total Snapshots:** 1
-- **Total IP Registrations:** 0
-- **Timeline Span:** 0 days (just started!)
-- **Most Active Month:** November 2025 (2 entries)
-- **Most Active Year:** 2025 (2 entries)
+- **Total IP Registrations:** 1
+- **Timeline Span:** 4 days
+- **Most Active Month:** November 2025 (3 entries)
+- **Most Active Year:** 2025 (3 entries)
 
 *These statistics should be updated monthly*
 
