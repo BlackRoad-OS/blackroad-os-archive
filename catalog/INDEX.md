@@ -1,7 +1,7 @@
 # 📇 BlackRoad OS Archive Index
 
-**Last Updated:** 2025-11-24  
-**Total Archived Items:** 0  
+**Last Updated:** 2025-11-28
+**Total Archived Items:** 1
 **Purpose:** Master index of all archived content
 
 ---
@@ -36,7 +36,15 @@ Point-in-time captures of the BlackRoad OS ecosystem state.
 
 Canonical versions of intellectual property, protocols, and frameworks.
 
-*No IP artifacts archived yet. See `workflows/ip-registration-workflow.md` for how to register IP.*
+
+### Persona & Agent Seeds
+
+- [Agent Soul Seeds — November 2025 Intake](../ip/agent-soul-seeds-2025-11-28.md)
+  - Category: IP / Persona Registry
+  - Registration: IP-20251128-001
+  - Version: 1.0
+  - Archived: 2025-11-28
+  - Source: Direct user submission
 
 **Example entry format:**
 ```markdown
@@ -108,12 +116,12 @@ Archive documentation and operational files.
 ## 📊 Statistics
 
 - **Total Snapshots:** 1
-- **Total IP Artifacts:** 0
+- **Total IP Artifacts:** 1
 - **Total Legal/Finance Docs:** 0
 - **Total Workflows:** 3
 - **Total Meta Docs:** 2
 - **First Archive Entry:** 2025-11-24
-- **Last Archive Entry:** 2025-11-24
+- **Last Archive Entry:** 2025-11-28
 
 ---
 
@@ -142,6 +150,7 @@ Archive documentation and operational files.
 - Three core workflows documented
 - Meta documentation established
 - First snapshot: Archive initialization
+- Agent Soul Seeds (11 personas) archived as IP entry
 
 ---
 

@@ -1,6 +1,6 @@
 # 📅 BlackRoad OS Timeline
 
-**Last Updated:** 2025-11-24  
+**Last Updated:** 2025-11-28
 **Purpose:** Chronological map of major milestones and events  
 **Format:** Most recent first
 
@@ -25,6 +25,13 @@
   - Documented repository structure
   - Type: Milestone (Archive initialization)
 
+#### 2025-11-28
+- **Agent Soul Seeds Archived** 🧬
+  - Eleven persona seeds recorded for BlackRoad OS agents
+  - Captures canonical 256-character identifiers for reuse across deployments
+  - Link: [Agent Soul Seeds — November 2025 Intake](../ip/agent-soul-seeds-2025-11-28.md)
+  - **Significance:** Establishes first IP entry and canonicalizes agent personas
+
 ---
 
 ## Future Milestones
@@ -32,7 +39,7 @@
 *This section will track anticipated major milestones*
 
 ### Upcoming:
-- First IP registration
+- Additional IP registrations beyond the initial persona seeds
 - First finalized documentation archival
 - Monthly snapshot cadence establishment
 - Integration with source repositories
@@ -60,7 +67,7 @@ Regular ecosystem state captures
 
 ### 🧬 IP Registrations
 Formal intellectual property registrations
-- *None yet - awaiting first IP registration*
+- 2025-11-28: Agent Soul Seeds (11 personas)
 
 ### 📚 Documentation
 Major documentation milestones
@@ -148,13 +155,13 @@ Legal and corporate structure events
 
 ## Timeline Statistics
 
-**Current Metrics (2025-11-24):**
-- **Total Entries:** 2
+**Current Metrics (2025-11-28):**
+- **Total Entries:** 3
 - **Total Snapshots:** 1
-- **Total IP Registrations:** 0
-- **Timeline Span:** 0 days (just started!)
-- **Most Active Month:** November 2025 (2 entries)
-- **Most Active Year:** 2025 (2 entries)
+- **Total IP Registrations:** 1
+- **Timeline Span:** 4 days
+- **Most Active Month:** November 2025 (3 entries)
+- **Most Active Year:** 2025 (3 entries)
 
 *These statistics should be updated monthly*
 

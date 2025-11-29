@@ -101,7 +101,7 @@ Monthly/Milestone → Capture State → Document → Archive
 ## 📊 Current State
 
 - **Total Snapshots:** 1 (Initial: 2025-11-24)
-- **Total IP Artifacts:** 0 (awaiting first registration)
+- **Total IP Artifacts:** 1 (Agent Soul Seeds intake: 2025-11-28)
 - **Total Workflows:** 3 (Archive, Snapshot, IP Registration)
 - **Archive Status:** ✅ Initialized and operational
 
