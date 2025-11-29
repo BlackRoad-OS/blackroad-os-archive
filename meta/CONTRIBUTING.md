@@ -1,14 +1,30 @@
 # Contributing to blackroad-os-archive
 
-Thank you for your interest in contributing to the BlackRoad OS Archive! This repository serves as the long-term memory and institutional record for the BlackRoad OS ecosystem.
+Thank you for your interest in contributing to the BlackRoad OS Archive! This repository serves as the **Memory Vault 📡** — the immutable memory and append-only archive for the BlackRoad OS ecosystem.
 
 ## 🎯 What This Archive Is
 
 The `blackroad-os-archive` is:
-- 📚 A permanent record of finalized IP, decisions, and milestones
-- 🕰️ A time capsule capturing ecosystem snapshots
-- 🧵 A cross-repo index for historical context
-- 🔐 A clean, text-based, auditable ledger
+- 🧾 The **append-only history** of deploy logs, system pings, and beacon maps
+- 📦 A repository for **key system artifacts** and state bundles
+- 📡 A source for **archive feeds** that Prism/Operator/Agents consume
+- 🕰️ A **time capsule** capturing ecosystem snapshots
+- 🧬 A **canonical record** of finalized IP and decisions
+- 🔐 A **clean, text-based, auditable ledger** (no secrets!)
+
+## 🧪 Invariants (VERY IMPORTANT)
+
+### Archive is **APPEND-ONLY**
+- ✅ New entries can be added
+- ✅ Corrections are new entries that *reference* old ones
+- 🚫 Existing history is not silently edited or deleted
+
+### Every Record Must Have
+- 🧬 A **stable ID**
+- ⏱️ A **precise timestamp** (with timezone/UTC)
+- 🧭 **Context tags** (env, service, org, incident, agent if applicable)
+
+---
 
 ## ✅ Before Contributing
 
@@ -71,27 +87,43 @@ Every archived document **must** include this metadata header:
 ## 🚫 What NOT to Contribute
 
 Do **NOT** add:
-- ❌ Secrets (API keys, tokens, passwords, private keys)
+- ❌ Secrets (API keys, tokens, passwords, private keys) 🔐
 - ❌ Drafts or work-in-progress (archive only finalized content)
 - ❌ Large binary files (images, PDFs, zip files, datasets)
-- ❌ Personal identifying information (PII)
+- ❌ Personal identifying information (PII) 🧼
 - ❌ Sensitive business data not intended for public record
 - ❌ Raw logs or operational data (unless summarized)
+
+### 🔐 Security & Compliance
+Data here may be **compliance-relevant**:
+- ⚖️ Treat as audit-grade: logs must be trustworthy
+- 🔐 No secrets (passwords, raw tokens, private keys) 🚫
+- 🧼 Avoid sensitive PII; use opaque IDs where possible
+
+For finance/identity/compliance-critical events, tag clearly:
+```
+// COMPLIANCE-SENSITIVE ARCHIVE RECORD
+```
 
 ## 📁 Directory Structure
 
 ```
 blackroad-os-archive/
-├── catalog/          # Indexes and catalogs
+├── catalog/          # 📇 Indexes and catalogs
 │   ├── INDEX.md      # Master index (update this!)
 │   ├── services.md   # Repo/service catalog
 │   └── timeline.md   # Chronological milestones
-├── snapshots/        # Point-in-time ecosystem snapshots
+├── snapshots/        # 🕰️ Point-in-time ecosystem snapshots
 │   └── YYYY-MM-DD/   # Date-based snapshot folders
-├── ip/               # Intellectual property artifacts
-├── legal-finance/    # Legal and financial documentation
-├── workflows/        # Process documentation
-└── meta/             # Archive documentation (this file!)
+├── logs/             # 🚀 Deploy logs and system events
+├── pings/            # 📡 Health pings and status history
+├── beacons/          # 🗺️ Beacon maps and service reachability
+├── artifacts/        # 📸 System artifacts and state bundles
+├── reports/          # 📑 Postmortems, audits, upgrade notes
+├── ip/               # 🧬 Intellectual property artifacts
+├── legal-finance/    # ⚖️ Legal and financial documentation
+├── workflows/        # 🔁 Process documentation
+└── meta/             # 🧾 Archive documentation (this file!)
 ```
 
 ## 🔍 Review Process
@@ -166,6 +198,24 @@ If you're an AI agent contributing to this archive:
 
 ## 🙏 Thank You
 
-Every contribution helps build the collective memory of BlackRoad OS. Whether you're archiving a major protocol or fixing a typo, you're helping ensure this ecosystem's history is preserved with clarity and care.
+Every contribution helps build the collective memory of BlackRoad OS. Whether you're archiving a major protocol, adding a deploy log, or fixing a typo, you're helping ensure this ecosystem's history is preserved with clarity and care.
+
+---
+
+## 🧬 Local Emoji Legend
+
+| Emoji | Meaning |
+|-------|---------|
+| 🧾 | Archive / history |
+| 📡 | Pings / beacons / signals |
+| 🚀 | Deploys / releases |
+| 🗺️ | Maps of services/envs |
+| ⏱️ | Timestamps / timelines |
+| 📑 | Reports / postmortems |
+| ⚖️ | Compliance-sensitive records |
+| 📸 | Snapshots / captures |
+| 🧬 | IP / state bundles |
+
+---
 
 **Happy archiving!** 🕯️📚💚

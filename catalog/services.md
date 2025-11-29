@@ -1,6 +1,6 @@
 # 📚 BlackRoad OS Services & Repositories Catalog
 
-**Last Updated:** 2025-11-24  
+**Last Updated:** 2025-11-25  
 **Purpose:** Canonical list of all BlackRoad OS repositories and services  
 **Maintained By:** Archive Team & AI Agents
 
@@ -9,6 +9,26 @@
 ## Overview
 
 This catalog provides a comprehensive view of the BlackRoad OS ecosystem, listing all repositories, their purposes, and links to relevant archive content.
+
+---
+
+## 🧾 Archive Role Definition
+
+`blackroad-os-archive` is the **Memory Vault 📡** — the immutable memory of BlackRoad OS:
+
+### What This Archive Owns (✅)
+- 🧾 **Append-only history:** Deploy logs, system pings, beacon maps
+- 📦 **Artifacts:** Key system snapshots, reports, serialized state bundles
+- 📡 **Archive feeds:** Streams for Prism Console, Operator workflows, Research/analytics
+- 🔍 **Query & indexing:** Lightweight time/env/service/region indexing
+
+### What This Archive Does NOT Own (🚫)
+- Live runtime logic → `blackroad-os-core`, `-web`, `-api`, `-operator`
+- Infra definitions → `blackroad-os-infra`
+- Brand system → `blackroad-os-brand`
+- Handbook / policies → `blackroad-os-home`
+- Main docs → `blackroad-os-docs`
+- Raw math/theory → `blackroad-os-research`
 
 ---
 
@@ -28,15 +48,18 @@ This catalog provides a comprehensive view of the BlackRoad OS ecosystem, listin
 ### Core Infrastructure
 
 #### blackroad-os-archive
-- **Purpose:** Archive, ledger, and time capsule for BlackRoad OS
+- **Purpose:** Memory Vault 📡 — append-only archive for deploy logs, beacon maps, ping history, and key system artifacts
 - **Status:** Active
 - **Language:** Markdown
 - **URL:** https://github.com/BlackRoad-OS/blackroad-os-archive
 - **Archive Status:** Self-archiving repository
 - **Key Content:**
-  - Ecosystem snapshots
-  - IP registry
-  - Historical records
+  - 🧾 Deploy logs and system events
+  - 📡 Health pings and status history
+  - 🗺️ Beacon maps and service reachability
+  - 🕰️ Ecosystem snapshots
+  - 🧬 IP registry
+  - 📑 Reports and postmortems
   - Workflow documentation
 
 #### blackroad-os-core
@@ -98,6 +121,17 @@ This catalog provides a comprehensive view of the BlackRoad OS ecosystem, listin
 3. Archive copy created in `blackroad-os-archive`
 4. Catalog updated to link back to source
 5. Archived version becomes canonical reference
+
+### 📡 Archive Feeds
+
+The archive provides feeds that other systems consume:
+
+| Feed | Consumer | Content |
+|------|----------|---------|
+| Deploy logs | Prism Console 🕹️ | What shipped, when, by whom |
+| Health pings | Operator ⚙️ | Uptime, latency, status trends |
+| Beacon maps | Research 🧪 | Service/env reachability |
+| Snapshots | All systems | Point-in-time ecosystem state |
 
 ### Archival Status by Repo
 

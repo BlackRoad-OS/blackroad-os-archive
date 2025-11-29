@@ -1,34 +1,91 @@
 # 🧾 Archive Cover Sheet — `blackroad-os-archive`
 
 **Repository:** `BlackRoad-OS/blackroad-os-archive`  
-**Purpose:** Long-term memory, IP ledger, and historical record for BlackRoad OS  
-**Last Updated:** 2025-11-24  
+**Role:** Memory Vault 📡 — append-only archive for deploy logs, beacon maps, ping history, and key system artifacts (served via archive.blackroad.io)  
+**Last Updated:** 2025-11-25  
 **Maintained By:** BlackRoad OS Archive Team & AI Agents
 
 ---
 
-## 🎯 Purpose
+## 🎯 Mission
 
-`blackroad-os-archive` serves as the **permanent record and institutional memory** of the BlackRoad OS ecosystem.
+`blackroad-os-archive` is the **immutable memory** of BlackRoad OS:
+
+- 🧾 **Store logs, snapshots, and artifacts** so we can always reconstruct "what happened when"
+- 📡 **Feed Prism/Operator/Agents** with trustworthy historical data
+- 🏛️ **Be the institutional memory** — where 10,000 agents can answer "what happened when, and why?"
+
+---
+
+## 🏗️ What This Repo Owns (✅)
+
+### 🧾 Append-Only History
+- **Deploy logs** — what shipped, when, from where, by whom/which agent 🚀
+- **System pings & health snapshots** — uptime, latency, status over time 📡
+- **Beacon maps** — which services/envs/orgs are alive + reachable 🗺️
+
+### 📦 Artifacts
+- **Key system snapshots** — config exports, schema snapshots, diagrams 📸
+- **Important reports** — incident postmortems, infra audits, upgrade notes 📑
+- **Serialized state bundles** — "state at time T" snapshots where needed 🧬
+
+### 📡 Archive Feeds
+Streams that other systems can read:
+- **Prism Console dashboards** 🕹️
+- **Operator workflows** (trend-aware decisions) ⚙️
+- **Research/analytics** (latency, failure patterns) 🧪
+
+### 🔍 Query & Indexing (Lightweight)
+- Index by time, env, service, region, incident ID where possible ⏱️
+- Simple APIs/paths for "list artifacts for X day/week/incident" 🧭
+
+---
+
+## 🚫 What This Repo Does NOT Own
+
+- 🚫 Live runtime logic → `blackroad-os-core`, `-web`, `-api`, `-operator` 💻
+- 🚫 Infra definitions → `blackroad-os-infra` ☁️
+- 🚫 Brand system → `blackroad-os-brand` 🎨
+- 🚫 Handbook / policies → `blackroad-os-home` 🏠
+- 🚫 Main docs → `blackroad-os-docs` 📚
+- 🚫 Raw math/theory → `blackroad-os-research` 🧪
+
+---
+
+## 🧪 Invariants (VERY IMPORTANT)
+
+### Archive is **APPEND-ONLY**
+- ✅ New entries can be added
+- ✅ Corrections are new entries that *reference* old ones
+- 🚫 Existing history is not silently edited or deleted
+
+### Every Record Must Have
+- 🧬 A **stable ID**
+- ⏱️ A **precise timestamp** (with timezone/UTC)
+- 🧭 **Context tags** (env, service, org, incident, agent if applicable)
+
+---
 
 ### What Counts as Archive-Worthy:
 
 ✅ **Archive-worthy content includes:**
 
-- **Major Decisions:** Architecture decisions, product direction changes, organizational restructuring
-- **IP Artifacts:** Finalized protocols, frameworks, theoretical foundations, research papers
-- **Snapshots:** Point-in-time views of the entire ecosystem (repos, infrastructure, org state)
-- **Legal & Finance:** Corporate structure, trademark documentation, contract language, pricing models
-- **Milestones:** Funding events, major launches, significant achievements
-- **Workflows:** How the ecosystem operates, how artifacts move between repos
+- 🚀 **Deploy Logs:** What shipped, when, from where, by whom/which agent
+- 📡 **System Pings:** Health snapshots, uptime history, latency over time
+- 🗺️ **Beacon Maps:** Which services/envs/orgs are alive + reachable
+- 📸 **System Snapshots:** Config exports, schema snapshots, diagrams
+- 📑 **Reports:** Incident postmortems, infra audits, upgrade notes
+- 🧬 **IP Artifacts:** Finalized protocols, frameworks, theoretical foundations, research papers
+- ⚖️ **Legal & Finance:** Corporate structure, trademark documentation, contract language, pricing models
+- 🕰️ **Ecosystem Snapshots:** Point-in-time views of the entire ecosystem (repos, infrastructure, org state)
 
 ❌ **NOT archive-worthy:**
 
-- Work-in-progress drafts (these live in source repos until finalized)
-- Temporary notes or scratchpads
-- Large binary files, media assets, or datasets
-- Secrets, credentials, or sensitive personal information
-- Raw logs or operational data (unless summarized for historical context)
+- 🚫 Work-in-progress drafts (these live in source repos until finalized)
+- 🚫 Temporary notes or scratchpads
+- 🚫 Large binary files, media assets, or datasets
+- 🚫 Secrets, credentials, or sensitive personal information
+- 🚫 Raw logs or operational data (unless summarized for historical context)
 
 ---
 
@@ -36,31 +93,56 @@
 
 All archived items fall into one of these categories:
 
-### 1. **Snapshots** 🕰️
+### 1. **Deploy Logs** 🚀
+Deploy and release history.
+- **Location:** `logs/`
+- **Contents:** What shipped, when, from where, by whom/which agent
+
+### 2. **System Pings** 📡
+Health snapshots and status history.
+- **Location:** `pings/`
+- **Contents:** Uptime, latency, status over time
+
+### 3. **Beacon Maps** 🗺️
+Service and environment reachability.
+- **Location:** `beacons/`
+- **Contents:** Which services/envs/orgs are alive + reachable
+
+### 4. **Snapshots** 🕰️
 Point-in-time captures of the ecosystem state.
 - **Location:** `snapshots/YYYY-MM-DD/`
 - **Cadence:** Major milestones, monthly, or on-demand
 - **Contents:** Org overview, repo list, infrastructure state, IP highlights
 
-### 2. **IP (Intellectual Property)** 🧬
+### 5. **Artifacts** 📸
+System artifacts and state bundles.
+- **Location:** `artifacts/`
+- **Contents:** Config exports, schema snapshots, diagrams
+
+### 6. **Reports** 📑
+Postmortems, audits, and upgrade notes.
+- **Location:** `reports/`
+- **Contents:** Incident postmortems, infra audits, upgrade notes
+
+### 7. **IP (Intellectual Property)** 🧬
 Canonical versions of protocols, frameworks, and theoretical work.
 - **Location:** `ip/`
 - **Examples:** Phoenix Resilience Protocol, Spiral Information Geometry, QLM Lab Overview
 - **Status:** Finalized, blessed, ready for reference or filing
 
-### 3. **Legal & Finance** ⚖️💸
+### 8. **Legal & Finance** ⚖️💸
 Corporate structure, legal language, financial models.
 - **Location:** `legal-finance/`
 - **Examples:** Trademark documentation, contract templates, pricing models
 - **Sensitivity:** High - no secrets, but used for official purposes
 
-### 4. **Workflows** 🔁
+### 9. **Workflows** 🔁
 Process documentation for how the ecosystem operates.
 - **Location:** `workflows/`
 - **Examples:** How to archive a document, how to create a snapshot, IP registration
 - **Audience:** Future agents and team members
 
-### 5. **Catalog & Meta** 📇
+### 10. **Catalog & Meta** 📇
 Organizational and indexing files.
 - **Location:** `catalog/`, `meta/`
 - **Purpose:** Make the archive searchable and navigable
@@ -160,7 +242,15 @@ Every archived document must include this metadata header:
 
 ---
 
-## 🔐 Security & Sensitivity Guidelines
+## 🔐 Security & Compliance
+
+### Data here may be **compliance-relevant**:
+- ⚖️ Treat as audit-grade: logs must be trustworthy
+- 🔐 No secrets (passwords, raw tokens, private keys) 🚫
+- 🧼 Avoid sensitive PII; use opaque IDs where possible
+
+### For finance/identity/compliance-critical events:
+Tag clearly, e.g.: `// COMPLIANCE-SENSITIVE ARCHIVE RECORD`
 
 ### Prohibited Content:
 - ❌ API keys, tokens, passwords
@@ -205,6 +295,45 @@ Every archived document must include this metadata header:
    - Suggested category
    - Any special context
 3. AI agent or maintainer will process
+
+---
+
+## 📏 Design Principles
+
+`blackroad-os-archive` = **"what happened"**, not "what should happen":
+- 🧭 This is history, not business logic
+- 🧾 Prefer explicit, structured formats over free-text blobs
+
+Every artifact/log format should answer:
+1. ⏱️ **When** did this happen?
+2. 🧭 **What** system/env/service/agent did it involve?
+3. 🧬 **What is the minimum data** needed to reconstruct the event?
+
+---
+
+## 🎯 Success Criteria
+
+If a human/agent is debugging something scary and lands here, they should be able to:
+
+1. 🔍 **Reconstruct the sequence** of key events around a deploy/incident
+2. 📸 **See how the system looked** (services, health, configs) at a specific point in time
+3. 📊 **Feed Prism/Operator/Research** with reliable historical data without guessing
+
+---
+
+## 🧬 Local Emoji Legend
+
+| Emoji | Meaning |
+|-------|---------|
+| 🧾 | Archive / history |
+| 📡 | Pings / beacons / signals |
+| 🚀 | Deploys / releases |
+| 🗺️ | Maps of services/envs |
+| ⏱️ | Timestamps / timelines |
+| 📑 | Reports / postmortems |
+| ⚖️ | Compliance-sensitive records |
+| 📸 | Snapshots / captures |
+| 🧬 | IP / state bundles |
 
 ---
 

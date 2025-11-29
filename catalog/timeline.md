@@ -19,6 +19,13 @@
   - Defines ArchiveItem schema, immutability rules, and lineage chains
   - Introduces NP/P dual memory model (Symbolic + Perceptual)
   - **Significance:** Foundation for AI agent identity and behavior in the Archive
+- **Archive Brain Online** 🧾💚
+  - `blackroad-os-archive` updated to Memory Vault 📡 role
+  - New categories: Deploy Logs, System Pings, Beacon Maps, Artifacts, Reports
+  - Append-only invariants established
+  - Compliance and security guidance added
+  - Local emoji legend created
+  - **Significance:** Archive now serves as immutable memory for all of BlackRoad OS
 
 #### 2025-11-24
 - **BlackRoad OS Archive Initialized** 🕯️
@@ -77,6 +84,18 @@
 
 ## Timeline Categories
 
+### 🚀 Deploy Logs
+Deploy and release history
+- *Awaiting first deploy log*
+
+### 📡 System Pings
+Health snapshots and status history
+- *Awaiting first system ping*
+
+### 🗺️ Beacon Maps
+Service and environment reachability
+- *Awaiting first beacon map*
+
 ### 🕰️ Snapshots
 Regular ecosystem state captures
 - 2025-11-24: Initial snapshot (archive initialization)
@@ -84,6 +103,13 @@ Regular ecosystem state captures
 ### 🤖 System Prompts
 AI agent identity and behavior definitions
 - 2025-11-25: Archive Master Prompt (V0.1.64) created
+### 📸 Artifacts
+System artifacts and state bundles
+- *Awaiting first artifact*
+
+### 📑 Reports
+Incident postmortems and audits
+- *Awaiting first report*
 
 ### 🧬 IP Registrations
 Formal intellectual property registrations
@@ -183,7 +209,14 @@ Legal and corporate structure events
 - **Timeline Span:** 4 days
 **Current Metrics (2025-11-25):**
 - **Total Entries:** 3
+**Current Metrics (2025-11-25):**
+- **Total Entries:** 3
+- **Total Deploy Logs:** 0
+- **Total System Pings:** 0
+- **Total Beacon Maps:** 0
 - **Total Snapshots:** 1
+- **Total Artifacts:** 0
+- **Total Reports:** 0
 - **Total IP Registrations:** 0
 - **Total System Prompts:** 1
 - **Timeline Span:** 1 day
