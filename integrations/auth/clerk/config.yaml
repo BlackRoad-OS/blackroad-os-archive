@@ -1,0 +1,255 @@
+# Clerk Authentication Configuration
+# https://clerk.com/docs
+
+version: "1.0"
+provider: clerk
+
+# API Configuration
+api:
+  # Set via environment:
+  # CLERK_PUBLISHABLE_KEY (frontend)
+  # CLERK_SECRET_KEY (backend)
+  # CLERK_WEBHOOK_SECRET (webhooks)
+
+# Application Configuration
+application:
+  name: BlackRoad OS
+  logo_url: https://blackroad.io/logo.svg
+  favicon_url: https://blackroad.io/favicon.ico
+  support_email: support@blackroad.io
+
+# Authentication Methods
+auth_methods:
+  # Email/Password
+  email_password:
+    enabled: true
+    require_email_verification: true
+    password_requirements:
+      min_length: 12
+      require_uppercase: true
+      require_lowercase: true
+      require_number: true
+      require_special: true
+
+  # OAuth Providers
+  oauth:
+    - provider: google
+      enabled: true
+      client_id: ${GOOGLE_CLIENT_ID}
+      # client_secret via Clerk dashboard
+
+    - provider: github
+      enabled: true
+      client_id: ${GITHUB_CLIENT_ID}
+      scopes:
+        - user:email
+        - read:org
+
+    - provider: apple
+      enabled: true
+
+  # Magic Link (Passwordless)
+  magic_link:
+    enabled: true
+    expiry_minutes: 10
+
+  # Multi-factor Authentication
+  mfa:
+    enabled: true
+    methods:
+      - totp  # Authenticator app
+      - sms   # SMS codes
+    enforcement: optional  # or: required
+
+# Session Configuration
+sessions:
+  lifetime_seconds: 604800  # 7 days
+  inactivity_timeout_seconds: 86400  # 24 hours
+  single_session_mode: false
+  jwt:
+    lifetime_seconds: 60
+    custom_claims:
+      org_id: "{{user.organization_memberships[0].organization.id}}"
+      org_role: "{{user.organization_memberships[0].role}}"
+      permissions: "{{user.public_metadata.permissions}}"
+
+# User Profile
+user_profile:
+  required_fields:
+    - email_address
+    - first_name
+    - last_name
+
+  optional_fields:
+    - phone_number
+    - username
+    - avatar
+
+  public_metadata_schema:
+    type: object
+    properties:
+      team:
+        type: string
+      role:
+        type: string
+        enum: [admin, developer, viewer]
+      permissions:
+        type: array
+        items:
+          type: string
+
+# Organizations (Multi-tenancy)
+organizations:
+  enabled: true
+  max_allowed_memberships: 5
+  creator_role: admin
+
+  roles:
+    - name: admin
+      description: Full organization access
+      permissions:
+        - org:manage
+        - org:members:manage
+        - org:billing:manage
+        - projects:*
+        - api:*
+
+    - name: developer
+      description: Development access
+      permissions:
+        - projects:read
+        - projects:write
+        - api:read
+        - api:write
+
+    - name: viewer
+      description: Read-only access
+      permissions:
+        - projects:read
+        - api:read
+
+  invitation:
+    max_pending: 100
+    expiry_days: 7
+    require_acceptance: true
+
+# Webhooks
+webhooks:
+  - url: https://api.blackroad.io/webhooks/clerk
+    events:
+      - user.created
+      - user.updated
+      - user.deleted
+      - session.created
+      - session.ended
+      - organization.created
+      - organization_membership.created
+      - organization_membership.deleted
+    secret: ${CLERK_WEBHOOK_SECRET}
+
+# Frontend Integration
+frontend:
+  # Sign In Component
+  sign_in:
+    path: /sign-in
+    fallback_redirect_url: /dashboard
+    force_redirect_url: null
+
+  # Sign Up Component
+  sign_up:
+    path: /sign-up
+    fallback_redirect_url: /onboarding
+    force_redirect_url: null
+    unsafeMetadata:
+      referral_source: null
+
+  # User Profile
+  user_profile:
+    path: /settings/profile
+
+  # Organization Switcher
+  organization_switcher:
+    hide_personal: false
+    create_organization_mode: navigation
+
+  # Appearance
+  appearance:
+    layout:
+      socialButtonsPlacement: bottom
+      socialButtonsVariant: iconButton
+    variables:
+      colorPrimary: "#2563eb"
+      colorBackground: "#0d1117"
+      colorText: "#c9d1d9"
+      colorInputBackground: "#161b22"
+      colorInputText: "#c9d1d9"
+      borderRadius: "8px"
+    elements:
+      card: "bg-gray-900 border-gray-800"
+      headerTitle: "text-white"
+      formButtonPrimary: "bg-blue-600 hover:bg-blue-700"
+
+# Backend Middleware Configuration
+middleware:
+  # Protected Routes
+  protected_routes:
+    - /api/*
+    - /dashboard/*
+    - /settings/*
+
+  # Public Routes
+  public_routes:
+    - /
+    - /sign-in
+    - /sign-up
+    - /api/health
+    - /api/webhooks/*
+
+  # API Routes with specific permissions
+  api_routes:
+    - path: /api/admin/*
+      permissions:
+        - org:manage
+    - path: /api/projects/*
+      permissions:
+        - projects:read
+
+# Rate Limiting
+rate_limiting:
+  sign_in_attempts:
+    max: 5
+    window_seconds: 300
+  sign_up_attempts:
+    max: 3
+    window_seconds: 3600
+  password_reset_attempts:
+    max: 3
+    window_seconds: 3600
+
+# Security
+security:
+  # Bot Protection
+  bot_protection:
+    enabled: true
+    mode: challenge  # or: block
+
+  # Attack Protection
+  attack_protection:
+    brute_force: true
+    credential_stuffing: true
+    user_enumeration_prevention: true
+
+  # CORS
+  allowed_origins:
+    - https://blackroad.io
+    - https://*.blackroad.io
+    - http://localhost:3000
+
+# Development
+development:
+  test_mode: false
+  # Test users for development
+  test_users:
+    - email: test@blackroad.io
+      password: TestPassword123!
+      role: developer

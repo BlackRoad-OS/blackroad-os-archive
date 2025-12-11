@@ -1,0 +1,357 @@
+# Tunneling Configuration
+# Secure tunnel solutions for BlackRoad OS
+
+version: "1.0"
+
+# =============================================================================
+# CLOUDFLARE TUNNEL (cloudflared) - RECOMMENDED
+# =============================================================================
+cloudflare_tunnel:
+  description: |
+    Cloudflare Tunnel (formerly Argo Tunnel) provides secure, outbound-only
+    connections to Cloudflare's network without opening inbound ports.
+
+  # Installation
+  install:
+    linux: |
+      curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o cloudflared.deb
+      sudo dpkg -i cloudflared.deb
+    macos: brew install cloudflared
+    docker: cloudflare/cloudflared:latest
+
+  # Tunnel Configuration
+  tunnels:
+    # Production API Tunnel
+    - name: blackroad-api
+      credentials_file: /etc/cloudflared/credentials.json
+      ingress:
+        - hostname: api.blackroad.io
+          service: http://localhost:8080
+          originRequest:
+            connectTimeout: 30s
+            noTLSVerify: false
+
+        - hostname: archive.blackroad.io
+          service: http://localhost:4321
+          originRequest:
+            connectTimeout: 30s
+
+        # Catch-all (required)
+        - service: http_status:404
+
+    # Development Tunnel
+    - name: blackroad-dev
+      credentials_file: ~/.cloudflared/dev-credentials.json
+      ingress:
+        - hostname: dev.blackroad.io
+          service: http://localhost:3000
+
+        - service: http_status:404
+
+  # Quick Tunnel (no configuration needed)
+  quick_tunnel:
+    command: cloudflared tunnel --url http://localhost:8080
+    description: Creates temporary tunnel for testing
+
+  # Systemd Service
+  systemd:
+    service_file: /etc/systemd/system/cloudflared.service
+    config: |
+      [Unit]
+      Description=Cloudflare Tunnel
+      After=network.target
+
+      [Service]
+      Type=simple
+      User=cloudflared
+      ExecStart=/usr/bin/cloudflared tunnel run blackroad-api
+      Restart=on-failure
+      RestartSec=10
+
+      [Install]
+      WantedBy=multi-user.target
+
+  # Environment Variables
+  env_vars:
+    - TUNNEL_TOKEN  # From Cloudflare dashboard
+
+# =============================================================================
+# NGROK - Development & Testing
+# =============================================================================
+ngrok:
+  description: |
+    ngrok exposes local servers to the internet via secure tunnels.
+    Best for development and testing.
+
+  # Installation
+  install:
+    linux: |
+      curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
+      echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
+      sudo apt update && sudo apt install ngrok
+    macos: brew install ngrok/ngrok/ngrok
+    docker: ngrok/ngrok:latest
+
+  # Configuration
+  config_file: ~/.ngrok2/ngrok.yml
+  config: |
+    version: "2"
+    authtoken: ${NGROK_AUTHTOKEN}
+
+    tunnels:
+      # Web Application
+      web:
+        proto: http
+        addr: 3000
+        subdomain: blackroad-dev
+        inspect: true
+
+      # API Server
+      api:
+        proto: http
+        addr: 8080
+        subdomain: blackroad-api-dev
+        inspect: true
+
+      # SSH Access
+      ssh:
+        proto: tcp
+        addr: 22
+
+  # Quick Commands
+  commands:
+    http: ngrok http 3000
+    tcp: ngrok tcp 22
+    multiple: ngrok start --all
+
+  # Environment Variables
+  env_vars:
+    - NGROK_AUTHTOKEN
+
+# =============================================================================
+# TAILSCALE - Private Network Mesh
+# =============================================================================
+tailscale:
+  description: |
+    Tailscale creates a secure mesh network (VPN) between devices.
+    Zero configuration, works through NATs and firewalls.
+
+  # Installation
+  install:
+    linux: |
+      curl -fsSL https://tailscale.com/install.sh | sh
+    macos: brew install tailscale
+    docker: tailscale/tailscale:latest
+
+  # Network Configuration
+  tailnet:
+    name: blackroad-os
+    dns:
+      magic_dns: true
+      search_domains:
+        - blackroad-os.ts.net
+      nameservers:
+        - 100.100.100.100  # Tailscale DNS
+
+  # Access Control (ACLs)
+  acl: |
+    {
+      "acls": [
+        // Admins can access everything
+        {"action": "accept", "src": ["group:admin"], "dst": ["*:*"]},
+
+        // Developers can access dev servers
+        {"action": "accept", "src": ["group:dev"], "dst": ["tag:server:*"]},
+
+        // SSH access for ops team
+        {"action": "accept", "src": ["group:ops"], "dst": ["*:22"]},
+
+        // Deny everything else
+        {"action": "deny", "src": ["*"], "dst": ["*:*"]}
+      ],
+
+      "groups": {
+        "group:admin": ["admin@blackroad.io"],
+        "group:dev": ["dev@blackroad.io"],
+        "group:ops": ["ops@blackroad.io"]
+      },
+
+      "tagOwners": {
+        "tag:server": ["group:admin"],
+        "tag:container": ["group:admin"]
+      }
+    }
+
+  # Exit Nodes
+  exit_nodes:
+    - name: us-exit
+      region: us-west
+    - name: eu-exit
+      region: eu-west
+
+  # Environment Variables
+  env_vars:
+    - TAILSCALE_AUTHKEY
+
+# =============================================================================
+# FRPC - Self-Hosted Reverse Proxy
+# =============================================================================
+frp:
+  description: |
+    FRP (Fast Reverse Proxy) is a self-hosted tunneling solution.
+    Requires running your own frps server.
+
+  # Server Configuration (frps.ini)
+  server:
+    config: |
+      [common]
+      bind_port = 7000
+      vhost_http_port = 80
+      vhost_https_port = 443
+      dashboard_port = 7500
+      dashboard_user = admin
+      dashboard_pwd = ${FRP_DASHBOARD_PASSWORD}
+
+      # TLS
+      tls_enable = true
+      tls_cert_file = /etc/frp/server.crt
+      tls_key_file = /etc/frp/server.key
+
+      # Authentication
+      authentication_method = token
+      token = ${FRP_TOKEN}
+
+  # Client Configuration (frpc.ini)
+  client:
+    config: |
+      [common]
+      server_addr = tunnel.blackroad.io
+      server_port = 7000
+      token = ${FRP_TOKEN}
+      tls_enable = true
+
+      [web]
+      type = http
+      local_port = 3000
+      custom_domains = dev.blackroad.io
+
+      [api]
+      type = http
+      local_port = 8080
+      custom_domains = api-dev.blackroad.io
+
+      [ssh]
+      type = tcp
+      local_ip = 127.0.0.1
+      local_port = 22
+      remote_port = 6000
+
+  # Docker Deployment
+  docker:
+    server: |
+      docker run -d --name frps \
+        -p 7000:7000 -p 7500:7500 -p 80:80 -p 443:443 \
+        -v /etc/frp:/etc/frp \
+        snowdreamtech/frps
+    client: |
+      docker run -d --name frpc \
+        -v /etc/frp:/etc/frp \
+        snowdreamtech/frpc
+
+# =============================================================================
+# BORE - Simple TCP Tunnel
+# =============================================================================
+bore:
+  description: |
+    bore is a simple, fast, and secure tunnel to localhost.
+    Minimal setup, Rust-based.
+
+  # Installation
+  install:
+    cargo: cargo install bore-cli
+    binary: |
+      curl -L https://github.com/ekzhang/bore/releases/latest/download/bore-linux-amd64 -o bore
+      chmod +x bore
+
+  # Usage
+  commands:
+    local: bore local 8080 --to bore.pub
+    self_hosted: bore local 8080 --to tunnel.blackroad.io --port 7835
+
+  # Self-hosted Server
+  server:
+    command: bore server --min-port 1024 --max-port 65535
+
+# =============================================================================
+# WIREGUARD - VPN Tunnel
+# =============================================================================
+wireguard:
+  description: |
+    WireGuard is a modern, fast VPN protocol.
+    Use for site-to-site or remote access VPN.
+
+  # Server Configuration
+  server:
+    interface: wg0
+    port: 51820
+    config: |
+      [Interface]
+      Address = 10.0.0.1/24
+      ListenPort = 51820
+      PrivateKey = ${WG_SERVER_PRIVATE_KEY}
+      PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+      PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+      # Client: blackroad-dev
+      [Peer]
+      PublicKey = ${CLIENT_PUBLIC_KEY}
+      AllowedIPs = 10.0.0.2/32
+
+  # Client Configuration
+  client:
+    config: |
+      [Interface]
+      Address = 10.0.0.2/24
+      PrivateKey = ${WG_CLIENT_PRIVATE_KEY}
+      DNS = 1.1.1.1
+
+      [Peer]
+      PublicKey = ${SERVER_PUBLIC_KEY}
+      Endpoint = vpn.blackroad.io:51820
+      AllowedIPs = 0.0.0.0/0
+      PersistentKeepalive = 25
+
+# =============================================================================
+# RECOMMENDED SETUP
+# =============================================================================
+recommendations:
+  production:
+    primary: cloudflare_tunnel
+    reason: |
+      - Zero inbound ports
+      - DDoS protection included
+      - Integrated with Cloudflare CDN
+      - Enterprise-grade security
+
+  development:
+    primary: ngrok
+    fallback: bore
+    reason: |
+      - Quick setup
+      - Web inspector for debugging
+      - Stable subdomains
+
+  private_network:
+    primary: tailscale
+    reason: |
+      - Zero configuration
+      - Works through any firewall
+      - Built-in SSH support
+
+  self_hosted:
+    primary: cloudflare_tunnel
+    fallback: frp
+    reason: |
+      - Control over infrastructure
+      - No third-party dependencies
+      - Custom domain support

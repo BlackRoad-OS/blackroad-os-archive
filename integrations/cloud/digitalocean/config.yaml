@@ -1,0 +1,148 @@
+# DigitalOcean Droplets Configuration
+# Documentation: https://docs.digitalocean.com/
+
+version: "1.0"
+provider: digitalocean
+
+# API Configuration (set via environment)
+# DIGITALOCEAN_TOKEN: required
+
+# Droplet Specifications
+droplets:
+  # Production API Server
+  - name: blackroad-api-production
+    region: nyc3
+    size: s-2vcpu-4gb
+    image: docker-20-04
+    tags:
+      - production
+      - api
+      - blackroad-os
+    vpc_uuid: ${DO_VPC_UUID}
+    monitoring: true
+    backups: true
+    ipv6: true
+    user_data: |
+      #!/bin/bash
+      apt-get update
+      apt-get install -y docker.io docker-compose
+      systemctl enable docker
+      systemctl start docker
+      # Pull and run application
+      docker pull ghcr.io/blackroad-os/api:latest
+      docker run -d --restart=always -p 80:8080 -p 443:8443 ghcr.io/blackroad-os/api:latest
+
+  # Staging Environment
+  - name: blackroad-api-staging
+    region: nyc3
+    size: s-1vcpu-2gb
+    image: docker-20-04
+    tags:
+      - staging
+      - api
+      - blackroad-os
+    monitoring: true
+    backups: false
+
+  # Agent Runner (for AI agents)
+  - name: blackroad-agent-runner
+    region: sfo3
+    size: s-4vcpu-8gb
+    image: docker-20-04
+    tags:
+      - production
+      - agents
+      - blackroad-os
+    monitoring: true
+    user_data: |
+      #!/bin/bash
+      apt-get update
+      apt-get install -y docker.io nvidia-container-toolkit
+      systemctl enable docker
+      systemctl start docker
+
+# Firewall Rules
+firewalls:
+  - name: blackroad-web-firewall
+    inbound_rules:
+      - protocol: tcp
+        ports: "80"
+        sources:
+          addresses: ["0.0.0.0/0", "::/0"]
+      - protocol: tcp
+        ports: "443"
+        sources:
+          addresses: ["0.0.0.0/0", "::/0"]
+      - protocol: tcp
+        ports: "22"
+        sources:
+          addresses: ["${ADMIN_IP}/32"]
+    outbound_rules:
+      - protocol: tcp
+        ports: "1-65535"
+        destinations:
+          addresses: ["0.0.0.0/0", "::/0"]
+      - protocol: udp
+        ports: "1-65535"
+        destinations:
+          addresses: ["0.0.0.0/0", "::/0"]
+
+# Load Balancer
+load_balancers:
+  - name: blackroad-lb
+    region: nyc3
+    algorithm: round_robin
+    forwarding_rules:
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: http
+        target_port: 8080
+        certificate_name: blackroad-cert
+      - entry_protocol: http
+        entry_port: 80
+        target_protocol: http
+        target_port: 8080
+    health_check:
+      protocol: http
+      port: 8080
+      path: /health
+      check_interval_seconds: 10
+      response_timeout_seconds: 5
+      healthy_threshold: 5
+      unhealthy_threshold: 3
+    droplet_tag: api
+
+# Managed Databases
+databases:
+  - name: blackroad-postgres
+    engine: pg
+    version: "16"
+    size: db-s-1vcpu-2gb
+    region: nyc3
+    num_nodes: 1
+    tags:
+      - production
+      - database
+
+# Spaces (Object Storage)
+spaces:
+  - name: blackroad-assets
+    region: nyc3
+    acl: private
+
+# DNS (if using DO DNS)
+domains:
+  - name: blackroad.io
+    records:
+      - type: A
+        name: "@"
+        value: ${DROPLET_IP}
+        ttl: 300
+      - type: A
+        name: api
+        value: ${LB_IP}
+        ttl: 300
+      - type: CNAME
+        name: www
+        value: "@"
+        ttl: 300

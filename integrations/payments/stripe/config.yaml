@@ -1,0 +1,256 @@
+# Stripe Payment Integration Configuration
+# https://stripe.com/docs
+
+version: "1.0"
+provider: stripe
+
+# API Configuration
+api:
+  version: "2024-11-20"  # Stripe API version
+  # Set via environment:
+  # STRIPE_PUBLISHABLE_KEY (frontend)
+  # STRIPE_SECRET_KEY (backend)
+  # STRIPE_WEBHOOK_SECRET (webhooks)
+
+# Account Configuration
+account:
+  business_name: BlackRoad OS, Inc.
+  support_email: billing@blackroad.io
+  support_url: https://blackroad.io/support
+  statement_descriptor: BLACKROAD OS
+  short_descriptor: BLACKROAD
+
+# Products & Pricing
+products:
+  # Free Tier
+  - id: prod_free
+    name: Free
+    description: Get started with BlackRoad OS
+    features:
+      - 1 project
+      - Community support
+      - Basic analytics
+      - Public repositories only
+    prices:
+      - id: price_free_monthly
+        amount: 0
+        currency: usd
+        interval: month
+
+  # Pro Tier
+  - id: prod_pro
+    name: Pro
+    description: For professional developers
+    features:
+      - Unlimited projects
+      - Priority support
+      - Advanced analytics
+      - Private repositories
+      - Custom domains
+      - API access
+    prices:
+      - id: price_pro_monthly
+        amount: 1900  # $19.00
+        currency: usd
+        interval: month
+        lookup_key: pro_monthly
+
+      - id: price_pro_yearly
+        amount: 19000  # $190.00 (save ~17%)
+        currency: usd
+        interval: year
+        lookup_key: pro_yearly
+
+  # Team Tier
+  - id: prod_team
+    name: Team
+    description: For teams and organizations
+    features:
+      - Everything in Pro
+      - Team management
+      - Role-based access
+      - Audit logs
+      - SSO/SAML
+      - SLA guarantee
+    prices:
+      - id: price_team_monthly
+        amount: 4900  # $49.00 per seat
+        currency: usd
+        interval: month
+        per_unit: true
+        lookup_key: team_monthly
+
+      - id: price_team_yearly
+        amount: 49000  # $490.00 per seat
+        currency: usd
+        interval: year
+        per_unit: true
+        lookup_key: team_yearly
+
+  # Enterprise
+  - id: prod_enterprise
+    name: Enterprise
+    description: Custom solutions for large organizations
+    features:
+      - Everything in Team
+      - Dedicated support
+      - Custom integrations
+      - On-premise deployment
+      - Custom contracts
+    prices:
+      - id: price_enterprise
+        type: custom
+        contact_sales: true
+
+# Usage-Based Billing (Metered)
+metered_billing:
+  - id: meter_api_calls
+    name: API Calls
+    unit: request
+    aggregate_usage: sum
+    billing_scheme: tiered
+    tiers:
+      - up_to: 10000
+        unit_amount: 0  # Free tier
+      - up_to: 100000
+        unit_amount: 1  # $0.01 per request
+      - up_to: inf
+        unit_amount: 0.5  # $0.005 per request
+
+  - id: meter_storage
+    name: Storage
+    unit: GB
+    aggregate_usage: max
+    billing_scheme: per_unit
+    unit_amount: 10  # $0.10 per GB
+
+# Customer Portal
+customer_portal:
+  enabled: true
+  features:
+    subscription_update:
+      enabled: true
+      products:
+        - prod_free
+        - prod_pro
+        - prod_team
+    subscription_cancel:
+      enabled: true
+      mode: at_period_end
+      proration_behavior: none
+    invoice_history:
+      enabled: true
+    payment_method_update:
+      enabled: true
+  business_profile:
+    headline: Manage your BlackRoad OS subscription
+    privacy_policy_url: https://blackroad.io/privacy
+    terms_of_service_url: https://blackroad.io/terms
+
+# Checkout Configuration
+checkout:
+  success_url: https://blackroad.io/checkout/success?session_id={CHECKOUT_SESSION_ID}
+  cancel_url: https://blackroad.io/checkout/cancel
+  payment_methods:
+    - card
+    - us_bank_account
+    - link  # Stripe Link
+  billing_address_collection: auto
+  tax_id_collection: true
+  allow_promotion_codes: true
+  consent_collection:
+    terms_of_service: required
+
+# Webhooks
+webhooks:
+  endpoint_url: https://api.blackroad.io/webhooks/stripe
+  events:
+    # Checkout events
+    - checkout.session.completed
+    - checkout.session.expired
+
+    # Subscription events
+    - customer.subscription.created
+    - customer.subscription.updated
+    - customer.subscription.deleted
+    - customer.subscription.trial_will_end
+
+    # Invoice events
+    - invoice.paid
+    - invoice.payment_failed
+    - invoice.upcoming
+
+    # Payment events
+    - payment_intent.succeeded
+    - payment_intent.payment_failed
+
+    # Customer events
+    - customer.created
+    - customer.updated
+    - customer.deleted
+
+# Tax Configuration
+tax:
+  automatic_tax: true
+  tax_behavior: exclusive
+  tax_code: txcd_10000000  # Software as a Service
+
+# Dunning (Failed Payment Handling)
+dunning:
+  retry_schedule:
+    - days: 3
+    - days: 5
+    - days: 7
+  smart_retries: true
+  failed_payment_email: true
+  subscription_cancel_after_retries: true
+  grace_period_days: 14
+
+# Fraud Prevention
+fraud_prevention:
+  radar:
+    enabled: true
+    rules:
+      - block_if_cvc_fails: true
+      - block_if_zip_fails: true
+      - review_if_high_risk: true
+  3d_secure:
+    mode: automatic  # or: required
+
+# Quotes & Invoices
+invoicing:
+  auto_advance: true
+  collection_method: charge_automatically
+  days_until_due: 30
+  footer: "Thank you for using BlackRoad OS!"
+  default_tax_rates: []
+
+# Connect (Marketplace) - Optional
+connect:
+  enabled: false
+  # account_type: express
+  # platform_fee_percent: 10
+
+# Reporting
+reporting:
+  revenue_recognition: true
+  sigma_enabled: false
+
+# Testing
+test_mode:
+  enabled: false  # Toggle for development
+  test_clocks: []  # For subscription testing
+  test_cards:
+    success: "4242424242424242"
+    decline: "4000000000000002"
+    requires_auth: "4000002500003155"
+
+# Environment Variables Required
+env_vars:
+  - STRIPE_PUBLISHABLE_KEY
+  - STRIPE_SECRET_KEY
+  - STRIPE_WEBHOOK_SECRET
+  - STRIPE_PRICE_PRO_MONTHLY
+  - STRIPE_PRICE_PRO_YEARLY
+  - STRIPE_PRICE_TEAM_MONTHLY
+  - STRIPE_PRICE_TEAM_YEARLY
