@@ -1,0 +1,164 @@
+# Working Copy Git Client Configuration
+# https://workingcopy.app/
+
+version: "1.0"
+app: working-copy
+
+# Working Copy is a full-featured Git client for iOS/iPadOS
+description: |
+  Working Copy provides complete Git repository management on iOS,
+  with support for GitHub, GitLab, Bitbucket, and custom Git servers.
+  Integrates with Files app, Shortcuts, and other iOS apps.
+
+# Git Hosting Configuration
+remotes:
+  # GitHub (Primary)
+  - name: GitHub
+    type: github
+    url: https://github.com
+    auth_method: personal_access_token
+    # Token stored in iOS Keychain
+    # Scopes needed: repo, workflow, read:org
+    username: blackroad-deploy
+    organizations:
+      - BlackRoad-OS
+
+  # Self-hosted Git (Optional)
+  - name: BlackRoad Git
+    type: custom
+    url: https://git.blackroad.io
+    auth_method: ssh
+    ssh_key: blackroad_git
+
+# Repository Configuration
+repositories:
+  # Core Repositories
+  - name: blackroad-os-core
+    remote: GitHub
+    url: https://github.com/BlackRoad-OS/blackroad-os-core.git
+    default_branch: main
+    auto_fetch: true
+    category: core
+
+  - name: blackroad-os-archive
+    remote: GitHub
+    url: https://github.com/BlackRoad-OS/blackroad-os-archive.git
+    default_branch: main
+    auto_fetch: true
+    category: core
+
+  - name: blackroad-os-api
+    remote: GitHub
+    url: https://github.com/BlackRoad-OS/blackroad-os-api.git
+    default_branch: main
+    auto_fetch: true
+    category: core
+
+  # Web/Frontend
+  - name: blackroad-os-web
+    remote: GitHub
+    url: https://github.com/BlackRoad-OS/blackroad-os-web.git
+    default_branch: main
+    category: web
+
+  # Infrastructure
+  - name: blackroad-os-infra
+    remote: GitHub
+    url: https://github.com/BlackRoad-OS/blackroad-os-infra.git
+    default_branch: main
+    category: infrastructure
+
+  # Documentation
+  - name: blackroad-os-docs
+    remote: GitHub
+    url: https://github.com/BlackRoad-OS/blackroad-os-docs.git
+    default_branch: main
+    category: docs
+
+# Clone Settings
+clone_settings:
+  default_location: /Working Copy/BlackRoad
+  depth: 0  # Full clone
+  recursive: true  # Include submodules
+  lfs: true  # Enable Git LFS
+
+# Commit Defaults
+commit_defaults:
+  author_name: BlackRoad Deploy
+  author_email: deploy@blackroad.io
+  sign_commits: false  # GPG signing not available on iOS
+  template: |
+    [type]: Brief description
+
+    - Detail 1
+    - Detail 2
+
+    Refs: #issue
+
+# Branch Naming Convention
+branch_conventions:
+  feature: feature/{issue}-{description}
+  bugfix: fix/{issue}-{description}
+  hotfix: hotfix/{description}
+  release: release/v{version}
+  claude: claude/{task}-{session_id}
+
+# Workflows (Shortcuts Integration)
+workflows:
+  - name: Quick Commit
+    trigger: shortcut
+    steps:
+      - stage_all
+      - commit
+      - push
+
+  - name: Sync All Repos
+    trigger: shortcut
+    steps:
+      - fetch_all
+      - pull_all
+
+  - name: Create Feature Branch
+    trigger: shortcut
+    steps:
+      - checkout: main
+      - pull
+      - create_branch: feature/new
+
+# File Editing
+editor:
+  default_app: ia-writer  # Or: textastic, pretext, etc.
+  syntax_highlighting: true
+  show_line_numbers: true
+  word_wrap: true
+
+# Files App Integration
+files_integration:
+  enabled: true
+  expose_repos: true
+  location: Working Copy
+
+# App Extensions
+extensions:
+  share_sheet: true
+  files_provider: true
+  shortcuts: true
+  url_schemes: true
+
+# URL Scheme Examples
+# working-copy://clone?remote=https://github.com/BlackRoad-OS/repo.git
+# working-copy://open?repo=blackroad-os-core&path=README.md
+# working-copy://commit?repo=blackroad-os-core&message=Fix%20bug
+
+# Security
+security:
+  biometric_unlock: true
+  auto_lock: 300
+  clear_clipboard: 60
+
+# Appearance
+appearance:
+  theme: dark
+  icon_style: modern
+  font: SF Mono
+  font_size: 14

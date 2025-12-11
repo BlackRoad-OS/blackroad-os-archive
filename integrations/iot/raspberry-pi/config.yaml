@@ -1,0 +1,157 @@
+# Raspberry Pi Integration Configuration
+# Documentation: https://www.raspberrypi.com/documentation/
+
+version: "1.0"
+provider: raspberry-pi
+
+# Supported Models
+supported_models:
+  - name: Raspberry Pi 5
+    min_ram: 4GB
+    recommended_ram: 8GB
+    features:
+      - pcie
+      - usb3
+      - gigabit_ethernet
+      - bluetooth_5
+  - name: Raspberry Pi 4
+    min_ram: 2GB
+    recommended_ram: 4GB
+    features:
+      - usb3
+      - gigabit_ethernet
+      - bluetooth_5
+  - name: Raspberry Pi Zero 2W
+    min_ram: 512MB
+    features:
+      - wifi
+      - bluetooth
+      - low_power
+
+# Device Fleet Configuration
+fleet:
+  # Home Automation Hub
+  - name: blackroad-hub-01
+    model: Raspberry Pi 5
+    ram: 8GB
+    os: raspbian-bookworm-64
+    role: home-automation
+    location: home
+    services:
+      - homeassistant
+      - zigbee2mqtt
+      - mosquitto
+    network:
+      hostname: blackroad-hub-01.local
+      static_ip: 192.168.1.100
+      ports:
+        - 8123:8123  # Home Assistant
+        - 1883:1883  # MQTT
+        - 9001:9001  # MQTT WebSocket
+
+  # Edge AI Inference Node
+  - name: blackroad-ai-edge-01
+    model: Raspberry Pi 5
+    ram: 8GB
+    os: raspbian-bookworm-64
+    role: ai-inference
+    location: edge
+    accelerator: coral-usb
+    services:
+      - ollama
+      - frigate
+    network:
+      hostname: blackroad-ai-edge.local
+      static_ip: 192.168.1.101
+      ports:
+        - 11434:11434  # Ollama API
+        - 5000:5000    # Frigate
+
+  # Development/Test Node
+  - name: blackroad-dev-pi
+    model: Raspberry Pi 4
+    ram: 4GB
+    os: raspbian-bookworm-64
+    role: development
+    location: office
+    services:
+      - docker
+      - portainer
+      - code-server
+    network:
+      hostname: blackroad-dev.local
+      ports:
+        - 9000:9000   # Portainer
+        - 8443:8443   # Code Server
+
+# Base System Configuration
+system_config:
+  # SSH Configuration
+  ssh:
+    enabled: true
+    port: 22
+    permit_root_login: false
+    password_auth: false
+    pubkey_auth: true
+    authorized_keys_path: ~/.ssh/authorized_keys
+
+  # System Updates
+  updates:
+    auto_update: true
+    update_schedule: "0 3 * * 0"  # Weekly Sunday 3am
+    reboot_after_update: false
+
+  # Security Hardening
+  security:
+    fail2ban: true
+    ufw:
+      enabled: true
+      default_incoming: deny
+      default_outgoing: allow
+      allowed_ports:
+        - 22/tcp
+        - 80/tcp
+        - 443/tcp
+
+  # Monitoring
+  monitoring:
+    prometheus_node_exporter: true
+    telegraf: true
+    healthcheck_endpoint: /health
+    metrics_port: 9100
+
+# Docker Configuration
+docker:
+  enabled: true
+  compose_version: "2.24"
+  default_network: blackroad-net
+  registry: ghcr.io/blackroad-os
+
+# Ansible Playbook Reference
+ansible:
+  inventory_file: ./inventory.ini
+  playbooks:
+    - name: setup
+      file: playbooks/setup.yaml
+      description: Initial Pi setup and hardening
+    - name: docker
+      file: playbooks/docker.yaml
+      description: Install Docker and Compose
+    - name: deploy
+      file: playbooks/deploy.yaml
+      description: Deploy BlackRoad services
+    - name: update
+      file: playbooks/update.yaml
+      description: System and service updates
+
+# GPIO Configuration (for hardware projects)
+gpio:
+  pins:
+    status_led: 17
+    button_input: 27
+    relay_output: 22
+  i2c:
+    enabled: true
+    bus: 1
+  spi:
+    enabled: true

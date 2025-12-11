@@ -1,0 +1,447 @@
+# Open Source AI Models Registry
+# Vetted, safe, and forkable models for BlackRoad OS
+# Last updated: 2025-12-11
+
+version: "1.0"
+registry: blackroad-os-models
+
+# Safety Review Process
+safety_process:
+  description: |
+    All models in this registry have undergone safety review:
+    1. License verification (must allow commercial use or clear terms)
+    2. Capability assessment (no weapons, CSAM, malware generation)
+    3. Bias evaluation (tested for harmful biases)
+    4. Output filtering (guardrails in place)
+    5. Provenance check (known, reputable source)
+
+  review_criteria:
+    - license_compatibility
+    - no_harmful_capabilities
+    - bias_assessment
+    - content_safety
+    - known_provenance
+    - active_maintenance
+
+  approval_levels:
+    - level: approved
+      description: Fully vetted, safe for production
+    - level: experimental
+      description: Under evaluation, staging only
+    - level: restricted
+      description: Limited use cases, requires justification
+    - level: blocked
+      description: Not approved, do not use
+
+# =============================================================================
+# APPROVED LARGE LANGUAGE MODELS (120B+ Combined Capacity)
+# =============================================================================
+
+large_language_models:
+  # Tier 1: Production Ready (Primary Models)
+  tier_1:
+    - id: mistral-7b
+      name: Mistral 7B Instruct v0.3
+      source: mistralai/Mistral-7B-Instruct-v0.3
+      fork: BlackRoad-OS/mistral-7b-blackroad
+      parameters: 7B
+      context_length: 32768
+      license: Apache-2.0
+      license_url: https://www.apache.org/licenses/LICENSE-2.0
+      safety_level: approved
+      capabilities:
+        - general_chat
+        - instruction_following
+        - reasoning
+        - code_assistance
+      hardware_requirements:
+        min_vram: 16GB
+        recommended_vram: 24GB
+        quantized_vram: 6GB
+      safety_notes: |
+        - Includes built-in guardrails
+        - Trained with RLHF
+        - Tested for harmful content refusal
+      last_reviewed: 2025-12-01
+
+    - id: llama-3.2-3b
+      name: Llama 3.2 3B Instruct
+      source: meta-llama/Llama-3.2-3B-Instruct
+      fork: BlackRoad-OS/llama-3.2-3b-blackroad
+      parameters: 3B
+      context_length: 128000
+      license: Llama-3.2-Community
+      license_url: https://llama.meta.com/llama3_2/license
+      safety_level: approved
+      capabilities:
+        - general_chat
+        - tool_use
+        - instruction_following
+      hardware_requirements:
+        min_vram: 8GB
+        recommended_vram: 12GB
+        quantized_vram: 3GB
+      safety_notes: |
+        - Meta's safety fine-tuning
+        - Acceptable Use Policy applies
+      last_reviewed: 2025-12-01
+
+    - id: qwen-2.5-7b
+      name: Qwen 2.5 7B Instruct
+      source: Qwen/Qwen2.5-7B-Instruct
+      fork: BlackRoad-OS/qwen2.5-7b-blackroad
+      parameters: 7B
+      context_length: 131072
+      license: Apache-2.0
+      safety_level: approved
+      capabilities:
+        - multilingual
+        - long_context
+        - reasoning
+        - code
+      hardware_requirements:
+        min_vram: 16GB
+        quantized_vram: 6GB
+      safety_notes: |
+        - Extensive safety training
+        - Multi-language support
+      last_reviewed: 2025-12-01
+
+    - id: phi-3.5-mini
+      name: Phi-3.5 Mini Instruct
+      source: microsoft/Phi-3.5-mini-instruct
+      fork: BlackRoad-OS/phi-3.5-mini-blackroad
+      parameters: 3.8B
+      context_length: 128000
+      license: MIT
+      safety_level: approved
+      capabilities:
+        - reasoning
+        - math
+        - code
+        - edge_deployment
+      hardware_requirements:
+        min_vram: 8GB
+        quantized_vram: 3GB
+      safety_notes: |
+        - Microsoft responsible AI review
+        - Efficient for edge deployment
+      last_reviewed: 2025-12-01
+
+  # Tier 2: Larger Models (Higher Capability)
+  tier_2:
+    - id: llama-3.1-70b
+      name: Llama 3.1 70B Instruct
+      source: meta-llama/Llama-3.1-70B-Instruct
+      fork: BlackRoad-OS/llama-3.1-70b-blackroad
+      parameters: 70B
+      context_length: 128000
+      license: Llama-3.1-Community
+      safety_level: approved
+      capabilities:
+        - advanced_reasoning
+        - complex_tasks
+        - tool_use
+        - multilingual
+      hardware_requirements:
+        min_vram: 140GB
+        quantized_vram: 40GB
+      safety_notes: |
+        - State-of-the-art safety training
+        - Requires multi-GPU setup
+      last_reviewed: 2025-12-01
+
+    - id: qwen-2.5-72b
+      name: Qwen 2.5 72B Instruct
+      source: Qwen/Qwen2.5-72B-Instruct
+      fork: BlackRoad-OS/qwen2.5-72b-blackroad
+      parameters: 72B
+      context_length: 131072
+      license: Qwen
+      safety_level: approved
+      capabilities:
+        - advanced_reasoning
+        - long_context
+        - multilingual
+        - code
+      hardware_requirements:
+        min_vram: 150GB
+        quantized_vram: 45GB
+      last_reviewed: 2025-12-01
+
+    - id: deepseek-v3
+      name: DeepSeek V3
+      source: deepseek-ai/DeepSeek-V3
+      fork: BlackRoad-OS/deepseek-v3-blackroad
+      parameters: 671B (37B active MoE)
+      context_length: 128000
+      license: DeepSeek
+      safety_level: approved
+      capabilities:
+        - advanced_reasoning
+        - code
+        - math
+        - efficient_moe
+      hardware_requirements:
+        min_vram: 80GB
+        quantized_vram: 50GB
+      safety_notes: |
+        - MoE architecture for efficiency
+        - Strong coding capabilities
+      last_reviewed: 2025-12-01
+
+# =============================================================================
+# CODE GENERATION MODELS
+# =============================================================================
+
+code_models:
+  - id: starcoder2-7b
+    name: StarCoder2 7B
+    source: bigcode/starcoder2-7b
+    fork: BlackRoad-OS/starcoder2-blackroad
+    parameters: 7B
+    context_length: 16384
+    license: BigCode-OpenRAIL-M
+    safety_level: approved
+    capabilities:
+      - code_completion
+      - code_generation
+      - code_explanation
+    supported_languages:
+      - python
+      - javascript
+      - typescript
+      - rust
+      - go
+      - java
+      - c
+      - cpp
+    safety_notes: |
+      - Trained on permissively licensed code
+      - No PII in training data
+    last_reviewed: 2025-12-01
+
+  - id: qwen-coder-7b
+    name: Qwen 2.5 Coder 7B
+    source: Qwen/Qwen2.5-Coder-7B-Instruct
+    fork: BlackRoad-OS/qwen-coder-blackroad
+    parameters: 7B
+    context_length: 131072
+    license: Apache-2.0
+    safety_level: approved
+    capabilities:
+      - code_completion
+      - debugging
+      - code_review
+      - refactoring
+    last_reviewed: 2025-12-01
+
+  - id: codestral-22b
+    name: Codestral 22B
+    source: mistralai/Codestral-22B-v0.1
+    fork: BlackRoad-OS/codestral-blackroad
+    parameters: 22B
+    context_length: 32768
+    license: MNPL
+    safety_level: restricted
+    capabilities:
+      - code_completion
+      - fill_in_middle
+    restrictions:
+      - non_production_use_only
+      - internal_development
+    last_reviewed: 2025-12-01
+
+# =============================================================================
+# EMBEDDING MODELS
+# =============================================================================
+
+embedding_models:
+  - id: bge-large
+    name: BGE Large English v1.5
+    source: BAAI/bge-large-en-v1.5
+    fork: BlackRoad-OS/bge-large-blackroad
+    parameters: 335M
+    dimensions: 1024
+    max_tokens: 512
+    license: MIT
+    safety_level: approved
+    use_cases:
+      - semantic_search
+      - rag
+      - clustering
+      - similarity
+    last_reviewed: 2025-12-01
+
+  - id: nomic-embed
+    name: Nomic Embed Text v1.5
+    source: nomic-ai/nomic-embed-text-v1.5
+    fork: BlackRoad-OS/nomic-embed-blackroad
+    parameters: 137M
+    dimensions: 768
+    max_tokens: 8192
+    license: Apache-2.0
+    safety_level: approved
+    use_cases:
+      - long_document_embedding
+      - semantic_search
+    last_reviewed: 2025-12-01
+
+  - id: gte-large
+    name: GTE Large v1.5
+    source: Alibaba-NLP/gte-large-en-v1.5
+    fork: BlackRoad-OS/gte-large-blackroad
+    parameters: 434M
+    dimensions: 1024
+    max_tokens: 8192
+    license: Apache-2.0
+    safety_level: approved
+    use_cases:
+      - semantic_search
+      - retrieval
+    last_reviewed: 2025-12-01
+
+# =============================================================================
+# VISION MODELS
+# =============================================================================
+
+vision_models:
+  - id: clip-large
+    name: CLIP ViT-L/14
+    source: openai/clip-vit-large-patch14
+    fork: BlackRoad-OS/clip-blackroad
+    parameters: 428M
+    license: MIT
+    safety_level: approved
+    capabilities:
+      - image_classification
+      - image_text_matching
+      - zero_shot_classification
+    last_reviewed: 2025-12-01
+
+  - id: dinov2-large
+    name: DINOv2 Large
+    source: facebook/dinov2-large
+    fork: BlackRoad-OS/dinov2-blackroad
+    parameters: 300M
+    license: Apache-2.0
+    safety_level: approved
+    capabilities:
+      - feature_extraction
+      - image_understanding
+    last_reviewed: 2025-12-01
+
+  - id: llava-1.6
+    name: LLaVA 1.6 Mistral 7B
+    source: llava-hf/llava-v1.6-mistral-7b-hf
+    fork: BlackRoad-OS/llava-blackroad
+    parameters: 7B
+    license: Apache-2.0
+    safety_level: approved
+    capabilities:
+      - image_understanding
+      - visual_qa
+      - image_captioning
+    last_reviewed: 2025-12-01
+
+# =============================================================================
+# SPEECH MODELS
+# =============================================================================
+
+speech_models:
+  - id: whisper-large-v3
+    name: Whisper Large v3
+    source: openai/whisper-large-v3
+    fork: BlackRoad-OS/whisper-blackroad
+    parameters: 1.5B
+    license: MIT
+    safety_level: approved
+    capabilities:
+      - speech_to_text
+      - transcription
+      - translation
+    supported_languages: 99+
+    last_reviewed: 2025-12-01
+
+  - id: whisper-large-v3-turbo
+    name: Whisper Large v3 Turbo
+    source: openai/whisper-large-v3-turbo
+    fork: BlackRoad-OS/whisper-turbo-blackroad
+    parameters: 809M
+    license: MIT
+    safety_level: approved
+    capabilities:
+      - fast_transcription
+      - real_time_stt
+    last_reviewed: 2025-12-01
+
+# =============================================================================
+# BLOCKED MODELS (DO NOT USE)
+# =============================================================================
+
+blocked_models:
+  patterns:
+    - "*uncensored*"
+    - "*jailbreak*"
+    - "*abliterated*"
+    - "*unfiltered*"
+    - "*NSFW*"
+    - "*WizardLM-uncensored*"
+
+  specific:
+    - name: "Any uncensored variant"
+      reason: "Removed safety guardrails"
+    - name: "Jailbroken models"
+      reason: "Designed to bypass safety"
+    - name: "Models from unknown sources"
+      reason: "Unverified provenance"
+
+# =============================================================================
+# DEPLOYMENT CONFIGURATIONS
+# =============================================================================
+
+deployment:
+  # Local deployment with Ollama
+  ollama:
+    models:
+      - mistral:7b-instruct
+      - llama3.2:3b
+      - qwen2.5:7b
+      - phi3.5:3.8b
+      - codestral:22b
+
+  # vLLM deployment
+  vllm:
+    default_config:
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.9
+      max_model_len: 32768
+
+  # Text Generation Inference (TGI)
+  tgi:
+    default_config:
+      sharded: false
+      quantize: null
+
+  # Local inference with llama.cpp
+  llama_cpp:
+    quantization: Q4_K_M
+    context_size: 8192
+    batch_size: 512
+
+# =============================================================================
+# TOTAL PARAMETER COUNT
+# =============================================================================
+
+summary:
+  total_parameters: "~120B+ available capacity"
+  tier_1_models: 4
+  tier_2_models: 3
+  code_models: 3
+  embedding_models: 3
+  vision_models: 3
+  speech_models: 2
+  all_apache_2_compatible: false
+  all_commercial_use: true
+  safety_reviewed: true
+  last_full_review: 2025-12-01

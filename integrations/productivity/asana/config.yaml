@@ -1,0 +1,216 @@
+# Asana Integration Configuration
+# https://developers.asana.com/
+
+version: "1.0"
+provider: asana
+
+# API Configuration
+api:
+  base_url: https://app.asana.com/api/1.0
+  # Set via environment: ASANA_API_TOKEN
+  rate_limit: 1500  # requests per minute
+
+# Workspace Configuration
+workspace:
+  name: BlackRoad OS
+  # gid: set after workspace creation
+  # ASANA_WORKSPACE_GID
+
+# Team Structure
+teams:
+  - name: Engineering
+    description: Core platform development
+    members:
+      - engineering@blackroad.io
+
+  - name: Operations
+    description: DevOps and infrastructure
+    members:
+      - ops@blackroad.io
+
+  - name: Product
+    description: Product management
+    members:
+      - product@blackroad.io
+
+# Project Templates
+projects:
+  # Sprint Board
+  - name: Sprint Board
+    layout: board
+    sections:
+      - Backlog
+      - Ready
+      - In Progress
+      - Review
+      - Done
+    default_view: board
+    color: dark-blue
+
+  # Roadmap
+  - name: Product Roadmap
+    layout: timeline
+    sections:
+      - Q1 2025
+      - Q2 2025
+      - Q3 2025
+      - Q4 2025
+    default_view: timeline
+    color: dark-purple
+
+  # Bug Tracker
+  - name: Bug Tracker
+    layout: list
+    sections:
+      - Critical
+      - High
+      - Medium
+      - Low
+      - Resolved
+    default_view: list
+    color: dark-red
+
+  # Release Planning
+  - name: Release Planning
+    layout: board
+    sections:
+      - Planning
+      - Development
+      - Testing
+      - Staged
+      - Released
+    default_view: board
+    color: dark-green
+
+# Custom Fields
+custom_fields:
+  - name: Priority
+    type: enum
+    options:
+      - name: P0 - Critical
+        color: red
+      - name: P1 - High
+        color: orange
+      - name: P2 - Medium
+        color: yellow
+      - name: P3 - Low
+        color: blue
+
+  - name: Story Points
+    type: number
+    precision: 0
+
+  - name: Sprint
+    type: enum
+    options:
+      - Sprint 1
+      - Sprint 2
+      - Sprint 3
+
+  - name: Component
+    type: enum
+    options:
+      - API
+      - Web
+      - Mobile
+      - Infrastructure
+      - Documentation
+
+  - name: GitHub Issue
+    type: text
+    description: Link to GitHub issue
+
+# Task Templates
+task_templates:
+  - name: Bug Report
+    description: Template for bug reports
+    fields:
+      - name: Description
+        required: true
+      - name: Steps to Reproduce
+        required: true
+      - name: Expected Behavior
+        required: true
+      - name: Actual Behavior
+        required: true
+      - name: Environment
+        required: false
+
+  - name: Feature Request
+    description: Template for new features
+    fields:
+      - name: Problem Statement
+        required: true
+      - name: Proposed Solution
+        required: true
+      - name: Acceptance Criteria
+        required: true
+      - name: Technical Notes
+        required: false
+
+# GitHub Integration
+github_sync:
+  enabled: true
+  repo_mapping:
+    - asana_project: Sprint Board
+      github_repo: BlackRoad-OS/blackroad-os-core
+      sync_labels: true
+      sync_assignees: true
+      sync_status: true
+
+  issue_to_task:
+    enabled: true
+    create_on_issue_open: true
+    update_on_issue_update: true
+    complete_on_issue_close: true
+
+  pr_to_subtask:
+    enabled: true
+    link_to_parent_issue: true
+
+# Webhooks
+webhooks:
+  - event: task.created
+    url: https://api.blackroad.io/webhooks/asana
+    filters:
+      - project: Sprint Board
+
+  - event: task.completed
+    url: https://api.blackroad.io/webhooks/asana
+    filters:
+      - project: Sprint Board
+
+# Automation Rules
+rules:
+  - name: Auto-assign bugs
+    trigger:
+      type: task_added_to_project
+      project: Bug Tracker
+    actions:
+      - type: add_followers
+        followers:
+          - engineering@blackroad.io
+
+  - name: Move to Done on completion
+    trigger:
+      type: task_marked_complete
+    actions:
+      - type: move_to_section
+        section: Done
+
+# Reporting
+reports:
+  - name: Weekly Sprint Report
+    type: project_status
+    project: Sprint Board
+    schedule: weekly
+    recipients:
+      - team@blackroad.io
+
+  - name: Bug Metrics
+    type: custom
+    project: Bug Tracker
+    metrics:
+      - open_bugs_by_priority
+      - bugs_closed_this_week
+      - average_resolution_time

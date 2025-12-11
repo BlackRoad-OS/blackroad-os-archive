@@ -1,0 +1,167 @@
+# Shellfish SSH Client Configuration
+# https://secureshellfish.app/
+
+version: "1.0"
+app: shellfish
+
+# Shellfish is a professional SSH client for iOS/iPadOS
+description: |
+  Shellfish provides SSH, SFTP, and terminal access from iOS devices.
+  Supports key-based authentication, Files app integration, and Shortcuts.
+
+# Server Connections
+servers:
+  # Production API Server
+  - name: BlackRoad Production
+    host: api.blackroad.io
+    port: 22
+    username: deploy
+    auth_method: publickey
+    private_key: blackroad_deploy
+    startup_command: cd /app && tmux attach || tmux new
+    color: "#58a6ff"
+    icon: server
+    tags:
+      - production
+      - api
+
+  # Staging Server
+  - name: BlackRoad Staging
+    host: staging.blackroad.io
+    port: 22
+    username: deploy
+    auth_method: publickey
+    private_key: blackroad_deploy
+    color: "#d29922"
+    icon: server
+    tags:
+      - staging
+
+  # DigitalOcean Droplet
+  - name: DO Agent Runner
+    host: agent.blackroad.io
+    port: 22
+    username: root
+    auth_method: publickey
+    private_key: blackroad_do
+    color: "#0080ff"
+    icon: cpu
+    tags:
+      - production
+      - ai
+      - agents
+
+  # Raspberry Pi Hub
+  - name: Home Hub (Pi)
+    host: blackroad-hub.local
+    port: 22
+    username: pi
+    auth_method: publickey
+    private_key: blackroad_pi
+    local_network: true
+    color: "#7ee787"
+    icon: home
+    tags:
+      - home
+      - iot
+
+  # Development Pi
+  - name: Dev Pi
+    host: blackroad-dev.local
+    port: 22
+    username: pi
+    auth_method: publickey
+    private_key: blackroad_pi
+    local_network: true
+    color: "#bc8cff"
+    icon: code
+    tags:
+      - development
+
+# SSH Keys (stored in iOS Keychain)
+keys:
+  - name: blackroad_deploy
+    type: ed25519
+    comment: deploy@blackroad.io
+
+  - name: blackroad_do
+    type: ed25519
+    comment: digitalocean@blackroad.io
+
+  - name: blackroad_pi
+    type: ed25519
+    comment: pi@blackroad.io
+
+# Files App Integration
+files_integration:
+  enabled: true
+  locations:
+    - server: BlackRoad Production
+      remote_path: /app
+      local_mount: BlackRoad/Production
+
+    - server: Home Hub (Pi)
+      remote_path: /opt/blackroad
+      local_mount: BlackRoad/HomeHub
+
+# Port Forwarding Rules
+port_forwards:
+  - name: Production Postgres
+    server: BlackRoad Production
+    local_port: 5433
+    remote_host: localhost
+    remote_port: 5432
+
+  - name: Grafana Dashboard
+    server: Home Hub (Pi)
+    local_port: 3000
+    remote_host: localhost
+    remote_port: 3000
+
+# Snippets (Quick Commands)
+snippets:
+  - name: Check Health
+    command: curl -s localhost:8080/health | jq .
+
+  - name: Docker Status
+    command: docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+  - name: View Logs
+    command: docker logs -f --tail 100 $(docker ps -q | head -1)
+
+  - name: System Info
+    command: |
+      echo "=== System Info ==="
+      uname -a
+      echo "=== Memory ==="
+      free -h
+      echo "=== Disk ==="
+      df -h /
+      echo "=== Docker ==="
+      docker info 2>/dev/null | grep -E "(Containers|Images|Server Version)"
+
+# Shortcuts Integration (iOS)
+shortcuts:
+  - name: Quick Deploy
+    action: ssh_command
+    server: BlackRoad Production
+    command: cd /app && git pull && docker-compose up -d
+
+  - name: Health Report
+    action: ssh_command
+    server: BlackRoad Production
+    command: curl -s localhost:8080/health
+
+# Appearance
+appearance:
+  font: SF Mono
+  font_size: 14
+  theme: dark
+  cursor_style: block
+  cursor_blink: true
+
+# Security
+security:
+  biometric_unlock: true
+  clipboard_timeout: 60
+  auto_lock: 300

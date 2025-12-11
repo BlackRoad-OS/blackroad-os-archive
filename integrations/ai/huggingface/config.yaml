@@ -1,0 +1,274 @@
+# Hugging Face Integration Configuration
+# https://huggingface.co/docs
+
+version: "1.0"
+provider: huggingface
+
+# API Configuration
+api:
+  base_url: https://huggingface.co
+  inference_url: https://api-inference.huggingface.co
+  # Set via environment: HF_TOKEN
+
+# Organization
+organization:
+  name: BlackRoad-OS
+  url: https://huggingface.co/BlackRoad-OS
+
+# Model Hub Configuration
+model_hub:
+  # Download cache location
+  cache_dir: ~/.cache/huggingface/hub
+
+  # Model download settings
+  download:
+    resume_download: true
+    force_download: false
+    local_files_only: false
+
+  # Revision/branch to use
+  default_revision: main
+
+# Inference Endpoints
+inference_endpoints:
+  # Production text generation
+  - name: blackroad-text-gen
+    model: BlackRoad-OS/mistral-7b-blackroad
+    instance_type: gpu-medium
+    region: us-east-1
+    min_replicas: 1
+    max_replicas: 4
+    scale_to_zero: true
+
+  # Embeddings service
+  - name: blackroad-embeddings
+    model: BAAI/bge-large-en-v1.5
+    instance_type: cpu-medium
+    region: us-east-1
+    min_replicas: 1
+    max_replicas: 2
+
+# Spaces Configuration
+spaces:
+  - name: blackroad-demo
+    sdk: gradio
+    hardware: cpu-basic
+    visibility: public
+
+# Vetted Safe Models (Forked/Approved)
+# These models have been reviewed for safety and compliance
+approved_models:
+  # Large Language Models
+  llm:
+    - name: mistralai/Mistral-7B-Instruct-v0.3
+      fork_name: BlackRoad-OS/mistral-7b-blackroad
+      size: 7B
+      license: Apache-2.0
+      safety_review: passed
+      use_cases:
+        - text_generation
+        - chat
+        - code_completion
+      restrictions:
+        - no_harmful_content
+        - no_pii_generation
+
+    - name: meta-llama/Llama-3.2-3B-Instruct
+      fork_name: BlackRoad-OS/llama-3.2-3b-blackroad
+      size: 3B
+      license: Llama-3.2
+      safety_review: passed
+      use_cases:
+        - text_generation
+        - chat
+      restrictions:
+        - commercial_use_requires_license
+
+    - name: Qwen/Qwen2.5-7B-Instruct
+      fork_name: BlackRoad-OS/qwen2.5-7b-blackroad
+      size: 7B
+      license: Apache-2.0
+      safety_review: passed
+      use_cases:
+        - text_generation
+        - multilingual
+        - code
+
+    - name: google/gemma-2-9b-it
+      fork_name: BlackRoad-OS/gemma-2-9b-blackroad
+      size: 9B
+      license: Gemma
+      safety_review: passed
+      use_cases:
+        - text_generation
+        - instruction_following
+
+    - name: microsoft/Phi-3.5-mini-instruct
+      fork_name: BlackRoad-OS/phi-3.5-mini-blackroad
+      size: 3.8B
+      license: MIT
+      safety_review: passed
+      use_cases:
+        - text_generation
+        - reasoning
+        - edge_deployment
+
+  # Embedding Models
+  embeddings:
+    - name: BAAI/bge-large-en-v1.5
+      fork_name: BlackRoad-OS/bge-large-blackroad
+      size: 335M
+      license: MIT
+      safety_review: passed
+      use_cases:
+        - semantic_search
+        - rag
+        - clustering
+
+    - name: sentence-transformers/all-MiniLM-L6-v2
+      fork_name: BlackRoad-OS/minilm-blackroad
+      size: 22M
+      license: Apache-2.0
+      safety_review: passed
+      use_cases:
+        - semantic_search
+        - lightweight_embedding
+
+    - name: nomic-ai/nomic-embed-text-v1.5
+      fork_name: BlackRoad-OS/nomic-embed-blackroad
+      size: 137M
+      license: Apache-2.0
+      safety_review: passed
+      use_cases:
+        - semantic_search
+        - long_context
+
+  # Code Models
+  code:
+    - name: bigcode/starcoder2-7b
+      fork_name: BlackRoad-OS/starcoder2-blackroad
+      size: 7B
+      license: BigCode-OpenRAIL-M
+      safety_review: passed
+      use_cases:
+        - code_completion
+        - code_generation
+      supported_languages:
+        - python
+        - javascript
+        - typescript
+        - rust
+        - go
+
+    - name: Qwen/Qwen2.5-Coder-7B-Instruct
+      fork_name: BlackRoad-OS/qwen-coder-blackroad
+      size: 7B
+      license: Apache-2.0
+      safety_review: passed
+      use_cases:
+        - code_completion
+        - code_explanation
+        - debugging
+
+  # Vision Models
+  vision:
+    - name: openai/clip-vit-large-patch14
+      fork_name: BlackRoad-OS/clip-blackroad
+      size: 428M
+      license: MIT
+      safety_review: passed
+      use_cases:
+        - image_classification
+        - image_search
+
+    - name: facebook/dinov2-large
+      fork_name: BlackRoad-OS/dinov2-blackroad
+      size: 300M
+      license: Apache-2.0
+      safety_review: passed
+      use_cases:
+        - feature_extraction
+        - image_understanding
+
+  # Speech Models
+  speech:
+    - name: openai/whisper-large-v3
+      fork_name: BlackRoad-OS/whisper-blackroad
+      size: 1.5B
+      license: MIT
+      safety_review: passed
+      use_cases:
+        - speech_to_text
+        - transcription
+        - translation
+
+# Model Safety Checks
+safety:
+  # Pre-deployment checks
+  pre_deployment:
+    - toxicity_evaluation
+    - bias_assessment
+    - capability_boundaries
+    - license_compliance
+
+  # Runtime guardrails
+  runtime_guardrails:
+    - content_filter
+    - pii_detection
+    - prompt_injection_detection
+
+  # Blocked model patterns
+  blocked_patterns:
+    - "*uncensored*"
+    - "*jailbreak*"
+    - "*unsafe*"
+    - "*abliterated*"
+
+  # Required metadata for forked models
+  required_metadata:
+    - safety_review_date
+    - reviewer
+    - approved_use_cases
+    - known_limitations
+
+# Transformers Configuration
+transformers:
+  # Default generation settings
+  generation:
+    max_new_tokens: 2048
+    temperature: 0.7
+    top_p: 0.9
+    do_sample: true
+    repetition_penalty: 1.1
+
+  # Quantization settings
+  quantization:
+    default: bitsandbytes
+    options:
+      - bitsandbytes-4bit
+      - bitsandbytes-8bit
+      - gptq
+      - awq
+
+  # Device settings
+  device_map: auto
+  torch_dtype: auto
+
+# Datasets
+datasets:
+  approved:
+    - name: BlackRoad-OS/training-data
+      type: private
+      description: Curated training data
+      safety_review: passed
+
+  blocked_sources:
+    - personal_data
+    - copyrighted_content
+    - harmful_content
+
+# Environment Variables
+env_vars:
+  - HF_TOKEN
+  - HF_HOME
+  - TRANSFORMERS_CACHE

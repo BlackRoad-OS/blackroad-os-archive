@@ -1,0 +1,223 @@
+# Pyto Python IDE Configuration
+# https://pyto.app/
+
+version: "1.0"
+app: pyto
+
+# Pyto is a full Python IDE for iOS/iPadOS
+description: |
+  Pyto runs Python 3.12 natively on iOS with pip package support,
+  Jupyter notebooks, and integration with iOS frameworks.
+
+# Python Environment
+python:
+  version: "3.12"
+  site_packages: ~/Documents/site-packages
+
+# Pre-installed Packages (via pip)
+packages:
+  # Core utilities
+  - requests>=2.31.0
+  - httpx>=0.27.0
+  - aiohttp>=3.9.0
+
+  # Data processing
+  - numpy>=1.26.0
+  - pandas>=2.2.0
+  - polars>=0.20.0
+
+  # API clients
+  - openai>=1.12.0
+  - anthropic>=0.18.0
+  - huggingface-hub>=0.21.0
+
+  # Configuration
+  - pyyaml>=6.0.0
+  - python-dotenv>=1.0.0
+  - pydantic>=2.6.0
+
+  # Development
+  - pytest>=8.0.0
+  - black>=24.2.0
+  - ruff>=0.3.0
+
+  # BlackRoad utilities
+  - rich>=13.7.0
+  - typer>=0.9.0
+  - httpx>=0.27.0
+
+# BlackRoad SDK Scripts
+scripts:
+  # Health Check Script
+  - name: health_check.py
+    description: Check BlackRoad service health
+    code: |
+      #!/usr/bin/env python3
+      """Check health of BlackRoad services."""
+      import httpx
+      import asyncio
+      from rich.console import Console
+      from rich.table import Table
+
+      console = Console()
+
+      SERVICES = [
+          ("API", "https://api.blackroad.io/health"),
+          ("Archive", "https://archive.blackroad.io/health"),
+          ("Web", "https://blackroad.io"),
+      ]
+
+      async def check_health():
+          table = Table(title="BlackRoad Service Health")
+          table.add_column("Service", style="cyan")
+          table.add_column("URL", style="dim")
+          table.add_column("Status", style="bold")
+          table.add_column("Response Time", style="magenta")
+
+          async with httpx.AsyncClient(timeout=10) as client:
+              for name, url in SERVICES:
+                  try:
+                      resp = await client.get(url)
+                      status = "✅ OK" if resp.status_code == 200 else f"⚠️ {resp.status_code}"
+                      time_ms = f"{resp.elapsed.total_seconds()*1000:.0f}ms"
+                  except Exception as e:
+                      status = "❌ Error"
+                      time_ms = str(e)[:30]
+                  table.add_row(name, url, status, time_ms)
+
+          console.print(table)
+
+      if __name__ == "__main__":
+          asyncio.run(check_health())
+
+  # API Client Script
+  - name: blackroad_api.py
+    description: BlackRoad API client
+    code: |
+      #!/usr/bin/env python3
+      """BlackRoad API client for Pyto."""
+      import httpx
+      import os
+      from typing import Optional
+
+      class BlackRoadAPI:
+          def __init__(self, base_url: str = "https://api.blackroad.io"):
+              self.base_url = base_url
+              self.token = os.getenv("BLACKROAD_API_TOKEN")
+              self.client = httpx.Client(
+                  base_url=base_url,
+                  headers={"Authorization": f"Bearer {self.token}"} if self.token else {}
+              )
+
+          def health(self) -> dict:
+              """Check API health."""
+              return self.client.get("/health").json()
+
+          def get_catalog(self) -> dict:
+              """Get repository catalog."""
+              return self.client.get("/catalog/repos").json()
+
+          def create_beacon(self, service: str, status: str = "ok") -> dict:
+              """Send health beacon."""
+              return self.client.post("/beacons", json={
+                  "service": service,
+                  "status": status
+              }).json()
+
+      # Usage example
+      if __name__ == "__main__":
+          api = BlackRoadAPI()
+          print(api.health())
+
+  # Quick Deploy Script
+  - name: deploy_check.py
+    description: Pre-deployment checks
+    code: |
+      #!/usr/bin/env python3
+      """Run pre-deployment checks."""
+      import subprocess
+      import sys
+      from rich.console import Console
+
+      console = Console()
+
+      def run_check(name: str, cmd: list[str]) -> bool:
+          console.print(f"[cyan]Running {name}...[/]")
+          try:
+              result = subprocess.run(cmd, capture_output=True, text=True)
+              if result.returncode == 0:
+                  console.print(f"[green]✓ {name} passed[/]")
+                  return True
+              else:
+                  console.print(f"[red]✗ {name} failed[/]")
+                  console.print(result.stderr)
+                  return False
+          except FileNotFoundError:
+              console.print(f"[yellow]⚠ {name} skipped (command not found)[/]")
+              return True
+
+      checks = [
+          ("Type Check", ["python", "-m", "mypy", "."]),
+          ("Lint", ["python", "-m", "ruff", "check", "."]),
+          ("Format Check", ["python", "-m", "black", "--check", "."]),
+          ("Tests", ["python", "-m", "pytest", "-q"]),
+      ]
+
+      passed = all(run_check(name, cmd) for name, cmd in checks)
+      sys.exit(0 if passed else 1)
+
+# Jupyter Notebook Templates
+notebooks:
+  - name: BlackRoad Analysis
+    description: Data analysis template
+    cells:
+      - type: markdown
+        source: "# BlackRoad Analysis\nAnalyze BlackRoad service data."
+      - type: code
+        source: |
+          import pandas as pd
+          import httpx
+
+          # Fetch data
+          resp = httpx.get("https://archive.blackroad.io/api/beacons")
+          data = resp.json()
+          df = pd.DataFrame(data)
+          df.head()
+
+# Working Directory
+working_directory: ~/Documents/BlackRoad
+
+# iOS Integration
+ios_integration:
+  files_app: true
+  shortcuts: true
+  share_sheet: true
+  widgets: true
+
+# Shortcuts Actions
+shortcuts:
+  - name: Run Health Check
+    script: health_check.py
+
+  - name: API Status
+    script: blackroad_api.py
+    function: health
+
+# Environment Variables (loaded from .env)
+environment:
+  file: ~/Documents/BlackRoad/.env
+  variables:
+    - BLACKROAD_API_TOKEN
+    - GITHUB_TOKEN
+    - OPENAI_API_KEY
+    - ANTHROPIC_API_KEY
+
+# Editor Settings
+editor:
+  theme: dark
+  font: SF Mono
+  font_size: 14
+  tab_size: 4
+  use_spaces: true
+  auto_complete: true
+  syntax_highlighting: true

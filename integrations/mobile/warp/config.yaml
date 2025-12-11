@@ -1,0 +1,110 @@
+# Warp Terminal Configuration
+# https://docs.warp.dev/
+
+version: "1.0"
+app: warp
+
+# Warp is a modern terminal with AI-powered features
+description: |
+  Warp is a blazingly fast, Rust-based terminal with AI command search,
+  intelligent autocomplete, and team collaboration features.
+
+# Feature Configuration
+features:
+  ai_command_search: true
+  block_based_editing: true
+  workflows: true
+  themes: true
+  team_sharing: true
+
+# Theme Configuration
+theme:
+  name: blackroad-dark
+  colors:
+    background: "#0d1117"
+    foreground: "#c9d1d9"
+    cursor: "#58a6ff"
+    selection: "#264f78"
+    black: "#0d1117"
+    red: "#ff7b72"
+    green: "#7ee787"
+    yellow: "#d29922"
+    blue: "#58a6ff"
+    magenta: "#bc8cff"
+    cyan: "#39c5cf"
+    white: "#c9d1d9"
+
+# SSH Hosts Configuration (syncs with ~/.ssh/config)
+ssh_hosts:
+  - name: blackroad-prod
+    host: api.blackroad.io
+    user: deploy
+    port: 22
+    identity_file: ~/.ssh/blackroad_deploy
+
+  - name: blackroad-staging
+    host: staging.blackroad.io
+    user: deploy
+    port: 22
+    identity_file: ~/.ssh/blackroad_deploy
+
+  - name: blackroad-pi
+    host: blackroad-hub.local
+    user: pi
+    port: 22
+    identity_file: ~/.ssh/blackroad_pi
+
+# Custom Workflows
+workflows:
+  - name: deploy-production
+    description: Deploy to production
+    command: |
+      cd ~/code/blackroad-os-core
+      git pull origin main
+      pnpm build
+      railway up
+
+  - name: logs-production
+    description: View production logs
+    command: railway logs -f
+
+  - name: health-check
+    description: Check all services health
+    command: |
+      echo "Checking BlackRoad services..."
+      curl -s https://api.blackroad.io/health | jq .
+      curl -s https://archive.blackroad.io/health | jq .
+
+  - name: git-sync
+    description: Sync all repositories
+    command: |
+      for dir in ~/code/blackroad-os-*; do
+        echo "Syncing $dir..."
+        cd "$dir" && git fetch --all && git pull origin main
+      done
+
+# Keybindings (Warp-specific)
+keybindings:
+  show_workflows: "cmd+shift+r"
+  ai_command_search: "cmd+shift+a"
+  split_pane_vertical: "cmd+d"
+  split_pane_horizontal: "cmd+shift+d"
+  close_pane: "cmd+w"
+
+# AI Configuration
+ai:
+  enabled: true
+  context_awareness: true
+  suggested_commands: true
+
+# Session Persistence
+sessions:
+  restore_on_startup: true
+  save_history: true
+  history_limit: 10000
+
+# Integration with BlackRoad OS
+blackroad_integration:
+  api_endpoint: https://api.blackroad.io
+  archive_endpoint: https://archive.blackroad.io
+  env_file: ~/.blackroad/config
