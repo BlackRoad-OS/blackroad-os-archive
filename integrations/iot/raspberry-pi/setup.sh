@@ -109,8 +109,7 @@ if [ -f /home/pi/.ssh/authorized_keys ] || [ -f /home/$SUDO_USER/.ssh/authorized
     systemctl restart sshd
     log "SSH hardening applied with key-based auth"
 else
-    warn "No SSH keys found - keeping password auth enabled"
-    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    error "No SSH keys found in /home/pi/.ssh/authorized_keys or /home/$SUDO_USER/.ssh/authorized_keys. Please add your public SSH key to one of these files before running this setup script. Aborting to prevent insecure SSH configuration."
 fi
 
 # Install Prometheus Node Exporter
