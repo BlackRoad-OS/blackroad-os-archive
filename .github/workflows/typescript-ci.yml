@@ -71,7 +71,7 @@ jobs:
         run: npm run lint || npx eslint . --ext .ts,.tsx,.js,.jsx || echo "Lint complete"
 
       - name: Prettier check
-        run: npx prettier --check "**/*.{ts,tsx,js,jsx,json,md}" || echo "Prettier check complete"
+        run: npx prettier --check "**/*.{ts,tsx,js,jsx,json,md}"
 
   security:
     name: Security Audit
