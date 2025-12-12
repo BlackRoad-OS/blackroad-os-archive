@@ -40,7 +40,12 @@ jobs:
         run: npx tsc --noEmit || echo "No TypeScript config found"
 
       - name: Run tests
-        run: npm test || echo "No test script found"
+        run: |
+          if jq -e '.scripts.test' package.json > /dev/null; then
+            npm test
+          else
+            echo "No test script found; skipping tests."
+          fi
 
       - name: Build
         run: npm run build || echo "No build script found"
