@@ -29,9 +29,11 @@ name = "blackroad-os-archive-dev"
 # KV Namespaces (create via dashboard or wrangler)
 [[kv_namespaces]]
 binding = "CACHE"
-id = "" # Set after creating namespace
-preview_id = "" # Set after creating preview namespace
-
+id = "${CACHE_KV_ID}" # Set via environment variable CACHE_KV_ID
+preview_id = "${CACHE_KV_PREVIEW_ID}" # Set via environment variable CACHE_KV_PREVIEW_ID
+# To set up KV namespaces, create them via the Cloudflare dashboard or wrangler CLI,
+# then set CACHE_KV_ID and CACHE_KV_PREVIEW_ID in your environment before deploying.
+# See README.md for setup instructions.
 # D1 Database (optional)
 # [[d1_databases]]
 # binding = "DB"
