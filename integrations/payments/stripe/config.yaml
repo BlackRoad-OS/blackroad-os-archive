@@ -215,7 +215,17 @@ fraud_prevention:
       - block_if_zip_fails: true
       - review_if_high_risk: true
   3d_secure:
-    mode: automatic  # or: required
+    # 3D Secure mode controls when additional authentication is required.
+    # - "automatic": Stripe will require 3D Secure only when recommended by card network or risk engine.
+    # - "required": 3D Secure is always required for payments.
+    # 
+    # For high-value transactions (e.g., > $500) or high-risk customers, set mode to "required".
+    # If dynamic enforcement is needed, implement logic in application code to set mode per transaction.
+    # Example policy:
+    #   - mode: "required" for payments > $500
+    #   - mode: "automatic" otherwise
+    mode: automatic
+    required_for_amount_over: 500  # USD; set to null to disable. Enforce in application logic.
 
 # Quotes & Invoices
 invoicing:
