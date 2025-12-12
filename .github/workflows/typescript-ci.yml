@@ -68,7 +68,7 @@ jobs:
         run: npm ci
 
       - name: ESLint
-        run: npm run lint || npx eslint . --ext .ts,.tsx,.js,.jsx || echo "Lint complete"
+        run: npm run lint || npx eslint . --ext .ts,.tsx,.js,.jsx
 
       - name: Prettier check
         run: npx prettier --check "**/*.{ts,tsx,js,jsx,json,md}"
