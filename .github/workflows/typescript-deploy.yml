@@ -93,11 +93,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - name: Deploy to Railway
+      - name: Fail: Railway deployment not implemented
         run: |
-          echo "Deploying to Railway..."
-          echo "Would use Railway CLI or API here"
-          # railway up --service ${{ secrets.RAILWAY_SERVICE }}
+          echo "ERROR: Railway deployment is not yet implemented. Failing job."
+          exit 1
 
   deploy-cloudflare:
     name: Deploy to Cloudflare Pages
