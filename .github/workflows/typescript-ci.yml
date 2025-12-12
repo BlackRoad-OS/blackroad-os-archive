@@ -90,4 +90,4 @@ jobs:
         run: npm audit --audit-level=moderate || echo "Audit complete with warnings"
 
       - name: Check for vulnerable packages
-        run: npx audit-ci --moderate || echo "Audit complete"
+        run: npx audit-ci --moderate
