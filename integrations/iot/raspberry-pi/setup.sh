@@ -31,11 +31,11 @@ log "Starting BlackRoad OS Raspberry Pi Setup..."
 # Update system
 log "Updating system packages..."
 apt-get update -qq
-apt-get upgrade -y -qq
+apt-get upgrade -y -q
 
 # Install essential packages
 log "Installing essential packages..."
-apt-get install -y -qq \
+apt-get install -y -q \
     git \
     curl \
     wget \
