@@ -115,5 +115,5 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
-          echo "Deploying to Cloudflare Pages..."
-          # npx wrangler pages deploy dist --project-name=${{ secrets.CF_PROJECT_NAME }}
+          echo "ERROR: Cloudflare Pages deployment is not yet implemented in this workflow."
+          exit 1
