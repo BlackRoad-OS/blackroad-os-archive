@@ -42,7 +42,12 @@ jobs:
           fi
 
       - name: Type check
-        run: npx tsc --noEmit || echo "No TypeScript config found"
+        run: |
+          if [ -f tsconfig.json ]; then
+            npx tsc --noEmit
+          else
+            echo "No TypeScript config found, skipping type check."
+          fi
 
       - name: Run tests
         run: |
