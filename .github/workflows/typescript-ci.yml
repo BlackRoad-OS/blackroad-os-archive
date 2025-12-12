@@ -34,7 +34,12 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint || echo "No lint script found"
+        run: |
+          if jq -e '.scripts.lint' package.json > /dev/null; then
+            npm run lint
+          else
+            echo "No lint script found"
+          fi
 
       - name: Type check
         run: npx tsc --noEmit || echo "No TypeScript config found"
