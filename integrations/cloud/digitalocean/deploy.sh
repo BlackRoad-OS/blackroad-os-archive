@@ -75,17 +75,25 @@ ssh -o StrictHostKeyChecking=no root@"$DROPLET_IP" << 'EOF'
         systemctl start docker
     fi
 
-    # Pull and run latest image
+    # Pull latest image
     docker pull ghcr.io/blackroad-os/api:latest || true
     docker stop blackroad-api 2>/dev/null || true
     docker rm blackroad-api 2>/dev/null || true
+
+    # Ensure image exists locally
+    if ! docker image inspect ghcr.io/blackroad-os/api:latest > /dev/null 2>&1; then
+        echo "[ERROR] Docker image ghcr.io/blackroad-os/api:latest not found locally."
+        echo "Please build the image locally and push to ghcr.io, or ensure it is available."
+        exit 1
+    fi
+
     docker run -d \
         --name blackroad-api \
         --restart=always \
         -p 80:8080 \
         -p 443:8443 \
         -e NODE_ENV=production \
-        ghcr.io/blackroad-os/api:latest || echo "Container may need to be built"
+        ghcr.io/blackroad-os/api:latest
 
     echo "Deployment complete"
 EOF
