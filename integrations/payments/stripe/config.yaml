@@ -115,7 +115,7 @@ metered_billing:
       - up_to: 100000
         unit_amount: 1  # $0.01 per request
       - up_to: inf
-        unit_amount: 0.5  # $0.005 per request
+        unit_amount: 1  # $0.01 per request (Stripe requires integer cents)
 
   - id: meter_storage
     name: Storage
