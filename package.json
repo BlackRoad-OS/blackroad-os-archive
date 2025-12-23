@@ -28,22 +28,14 @@
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.13.0",
     "prettier-plugin-svelte": "^3.2.6",
-    "typescript": "^5.6.2"
-  "description": "Canonical catalog and cover sheet archive for the BlackRoad OS constellation.",
-  "scripts": {
-    "typecheck": "tsc --noEmit",
-    "validate": "ts-node scripts/validate_catalog.ts",
-    "generate:covers": "ts-node scripts/gen_cover_skeletons.ts",
-    "refresh:repos": "ts-node scripts/refresh_repos_catalog.ts"
-  },
-  "devDependencies": {
+    "typescript": "^5.6.2",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.14.9",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
-  }
+    "ts-node": "^10.9.2"
+  },
+  "description": "Canonical catalog and cover sheet archive for the BlackRoad OS constellation."
 }
