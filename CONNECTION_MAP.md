@@ -2,7 +2,7 @@
 
 **Last updated:** 2025-11-24  
 **Purpose:** Create a unified source-of-truth for all connections across infra, repos, domains, deployments, DNS, and credentials.  
-**Use:** Feed into Codex to generate corrections, workflows, infra fixes, DNS patches, and GitHub automation.
+**Use:** Feed into BlackRoad OS to generate corrections, workflows, infra fixes, DNS patches, and GitHub automation.
 
 ---
 
@@ -21,7 +21,7 @@ Document captures every active endpoint, domain, repository, cloud service, and 
 9. USPTO & Trademark infra
 10. Agents & Automations layer
 11. Error States / Fix Queue
-12. Codex Prompt Templates
+12. BlackRoad OS Prompt Templates
 
 ---
 
@@ -259,11 +259,11 @@ Current known issues:
 
 ---
 
-## 12. Codex Prompt Templates
+## 12. BlackRoad OS Prompt Templates
 
 ### 12.1 DNS Fix Prompt
 ```
-Codex: Map domain <domain> to <target>.
+BlackRoad OS: Map domain <domain> to <target>.
 Create CNAME @ or A records as needed.
 Ensure proxy = <on/off>.
 Enable Full SSL.
@@ -271,7 +271,7 @@ Enable Full SSL.
 
 ### 12.2 Railway Fix Prompt
 ```
-Codex: Verify /health on <service>.
+BlackRoad OS: Verify /health on <service>.
 If failing, scaffold minimal FastAPI app with /health.
 Push to repo <repo>.
 Deploy automatically via Railway.
@@ -279,7 +279,7 @@ Deploy automatically via Railway.
 
 ### 12.3 GitHub Workflow Fix Prompt
 ```
-Codex: Add CI/CD workflow to <repo>.
+BlackRoad OS: Add CI/CD workflow to <repo>.
 Steps:
   - install deps
   - run tests
@@ -288,7 +288,7 @@ Steps:
 
 ### 12.4 Cloudflare Pages Fix Prompt
 ```
-Codex: Deploy <repo> as Cloudflare Pages project <name>.
+BlackRoad OS: Deploy <repo> as Cloudflare Pages project <name>.
 Bind to <domain>.
 ```
 
