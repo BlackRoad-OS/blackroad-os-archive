@@ -1,13 +1,7 @@
 # 📇 BlackRoad OS Archive Index
 
-**Last Updated:** 2025-11-28
-**Total Archived Items:** 1
-**Total Archived Items:** 7
-**Last Updated:** 2025-11-25  
-**Total Archived Items:** 1  
-**Last Updated:** 2025-11-25  
-**Total Archived Items:** 0  
-**Total Archived Items:** 7
+**Last Updated:** 2025-12-15
+**Total Archived Items:** 10
 **Purpose:** Master index of all archived content
 
 ---
@@ -132,7 +126,6 @@ Incident postmortems, infra audits, upgrade notes.
 
 Canonical versions of intellectual property, protocols, and frameworks.
 
-
 ### Persona & Agent Seeds
 
 - [Agent Soul Seeds — November 2025 Intake](../ip/agent-soul-seeds-2025-11-28.md)
@@ -142,19 +135,28 @@ Canonical versions of intellectual property, protocols, and frameworks.
   - Archived: 2025-11-28
   - Source: Direct user submission
 
-**Example entry format:**
-```markdown
-- [Protocol Name](../ip/protocol-name-v1.0.md)  
-- [Trinary Base729 Encoding Specification](../ip/trinary-base729-encoding.md)
-  - Category: IP / Protocol
-  - Version: 0.1
-  - Archived: 2025-11-28
-  - Source: `BlackRoad-OS/blackroad-os-archive` @ `N/A (initial archival)`
+### Encoding Specifications
+
 - [Trinary Encoding Specification (Base27, Base81, Base729)](../ip/trinary-encoding-spec.md)
   - Category: IP / Protocol
   - Archived: 2025-11-28
   - Source: `BlackRoad-OS/blackroad-os-archive`
   - Focus: Balanced ternary alphabets, Base81 ordering, Base729 mapping via Base27 pairs
+
+- [Trinary Base729 Encoding Specification](../ip/trinary-base729-encoding.md)
+  - Category: IP / Protocol
+  - Version: 0.1
+  - Archived: 2025-11-28
+  - Source: `BlackRoad-OS/blackroad-os-archive` @ `N/A (initial archival)`
+
+**Example entry format:**
+```markdown
+- [Protocol Name](../ip/protocol-name-v1.0.md)
+  - Category: IP / Protocol
+  - Version: [version]
+  - Archived: YYYY-MM-DD
+  - Source: `BlackRoad-OS/[repo]` @ `[commit]`
+```
 
 ---
 
@@ -166,7 +168,7 @@ Legal documentation, corporate structure, financial models, and related material
 
 **Example entry format:**
 ```markdown
-- [Document Name](../legal-finance/document-name.md)  
+- [Document Name](../legal-finance/document-name.md)
   - Category: Legal | Finance
   - Archived: YYYY-MM-DD
   - Source: `BlackRoad-OS/[repo]` @ `[commit]`
@@ -233,17 +235,15 @@ Archive documentation and operational files.
 - **Total System Pings:** 0
 - **Total Beacon Maps:** 0
 - **Total Snapshots:** 1
-- **Total IP Artifacts:** 1
+- **Total IP Artifacts:** 3
 - **Total Artifacts:** 0
 - **Total Reports:** 0
-- **Total IP Artifacts:** 0
 - **Total Legal/Finance Docs:** 0
 - **Total Workflows:** 3
 - **Total System Prompts:** 1
 - **Total Meta Docs:** 2
 - **First Archive Entry:** 2025-11-24
 - **Last Archive Entry:** 2025-11-28
-- **Last Archive Entry:** 2025-11-25
 
 ---
 
@@ -267,24 +267,23 @@ Archive documentation and operational files.
 
 ## 🆕 Recent Additions
 
+### 2025-11-28
+- Trinary Encoding Specification archived under IP (Base27/Base81/Base729 mapping)
+- Trinary Base729 Encoding Specification archived (IP / Protocol)
+- Agent Soul Seeds (11 personas) archived as IP entry
+
 ### 2025-11-25
 - Archive Master Prompt (V0.1.64) — The 64-Layer Preservation Engine
 - Archive Brain update with Memory Vault role
 - New categories: Deploy Logs, System Pings, Beacon Maps, Artifacts, Reports
 - Updated invariants (append-only, stable IDs, timestamps, context tags)
 - Added compliance and security guidance
-### 2025-11-28
-- Trinary Encoding Specification archived under IP (Base27/Base81/Base729 mapping)
 
 ### 2025-11-24
 - Initial archive structure created
 - Three core workflows documented
 - Meta documentation established
 - First snapshot: Archive initialization
-- Agent Soul Seeds (11 personas) archived as IP entry
-
-### 2025-11-28
-- Trinary Base729 Encoding Specification archived (IP / Protocol)
 
 ---
 

@@ -1,7 +1,6 @@
 # 📅 BlackRoad OS Timeline
 
-**Last Updated:** 2025-11-28
-**Last Updated:** 2025-11-25  
+**Last Updated:** 2025-12-15
 **Purpose:** Chronological map of major milestones and events  
 **Format:** Most recent first
 
@@ -10,6 +9,22 @@
 ## 2025
 
 ### November 2025
+
+#### 2025-11-28
+- **Trinary Encoding Alphabet & Base729 Mapping** 🧬
+  - [Trinary Encoding Specification](../ip/trinary-encoding-spec.md) defines Base27, Base81, and Base729 alphabets with balanced-ternary semantics for RoadChain/Lucidia payloads.
+  - Significance: Establishes canonical mapping for paraconsistent trits and high-density archival strings, enabling PS-SHA∞ and coherence-aware data interchange.
+  - Related: Extends the archive's IP catalog beyond workflows and snapshots.
+- **Agent Soul Seeds Archived** 🧬
+  - Eleven persona seeds recorded for BlackRoad OS agents
+  - Captures canonical 256-character identifiers for reuse across deployments
+  - Link: [Agent Soul Seeds — November 2025 Intake](../ip/agent-soul-seeds-2025-11-28.md)
+  - **Significance:** Establishes first IP entry and canonicalizes agent personas
+- **Trinary Base729 Encoding Specification Archived** 🧬
+  - Captured the Base729 encoding pipeline for trinary truth-state hashes
+  - Added reference pseudocode and integration notes for Prism Console and RoadChain
+  - Significance: First IP artifact recorded in the archive, anchoring trinary memory semantics
+  - Related: [Trinary Base729 Encoding Specification](../ip/trinary-base729-encoding.md)
 
 #### 2025-11-25
 - **Archive Master Prompt (V0.1.64) Created** 🧬
@@ -26,11 +41,6 @@
   - Compliance and security guidance added
   - Local emoji legend created
   - **Significance:** Archive now serves as immutable memory for all of BlackRoad OS
-#### 2025-11-28
-- **Trinary Encoding Alphabet & Base729 Mapping** 🧬
-  - [Trinary Encoding Specification](../ip/trinary-encoding-spec.md) defines Base27, Base81, and Base729 alphabets with balanced-ternary semantics for RoadChain/Lucidia payloads.
-  - Significance: Establishes canonical mapping for paraconsistent trits and high-density archival strings, enabling PS-SHA∞ and coherence-aware data interchange.
-  - Related: Extends the archive's IP catalog beyond workflows and snapshots.
 
 #### 2025-11-24
 - **BlackRoad OS Archive Initialized** 🕯️
@@ -46,18 +56,6 @@
   - Captured baseline state of BlackRoad OS
   - Documented repository structure
   - Type: Milestone (Archive initialization)
-
-#### 2025-11-28
-- **Agent Soul Seeds Archived** 🧬
-  - Eleven persona seeds recorded for BlackRoad OS agents
-  - Captures canonical 256-character identifiers for reuse across deployments
-  - Link: [Agent Soul Seeds — November 2025 Intake](../ip/agent-soul-seeds-2025-11-28.md)
-  - **Significance:** Establishes first IP entry and canonicalizes agent personas
-- **Trinary Base729 Encoding Specification Archived** 🧬
-  - Captured the Base729 encoding pipeline for trinary truth-state hashes
-  - Added reference pseudocode and integration notes for Prism Console and RoadChain
-  - Significance: First IP artifact recorded in the archive, anchoring trinary memory semantics
-  - Related: [Trinary Base729 Encoding Specification](../ip/trinary-base729-encoding.md)
 
 ---
 
